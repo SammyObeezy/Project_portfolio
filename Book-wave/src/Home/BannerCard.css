@@ -1,0 +1,82 @@
+.banner .swiper {
+  width: 240px;
+  height: 320px;
+}
+
+.banner .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.banner .swiper-slide:nth-child(1n) {
+  background-image: url("src/assets/ways-of-kings");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(2n) {
+  background-color: url("src/assets/thinking first.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(1n) {
+  background-image: url("src/assets/atomic habits.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.banner .swiper-slide:nth-child(2n) {
+  background-image: url("src/assets/thinking first.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.banner .swiper-slide:nth-child(3n) {
+  background-image: url("src/assets/ways-of-kings.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(4n) {
+  background-image: url("src/assets/morking bird.jpg");
+  background-size: cover;
+  background-position: center;
+}
+.banner .swiper-slide:nth-child(5n) {
+  background-image: url("src/assets/eye-of-world.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(6n) {
+  background-image: url("src/assets/harry potter.png");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .banner .swiper-slide:nth-child(7n) {
+  background-image: url("src/assets/gamethrones.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+.banner .swiper-slide:nth-child(8n) {
+  background-image: url("src/assets/storm front.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(9n) {
+  background-image: url("src/assets/wizard.jpeg");
+  background-size: cover;
+  background-position: center;
+}
+
+.banner .swiper-slide:nth-child(10n) {
+  background-image: url("src/assets/sapiens.jpg");
+  background-size: cover;
+  background-position: center;
+}
