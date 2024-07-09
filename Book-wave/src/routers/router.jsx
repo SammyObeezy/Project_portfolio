@@ -68,7 +68,7 @@ const router = createBrowserRouter([
         path: "/admin/dashboard/edit-books/:id",
         element: <EditBooks />,
         loader: ({ params }) =>
-          fetch(project-portfolio-dun.vercel.app/book/${params.id}`),
+          fetch(`project-portfolio-dun.vercel.app/book/${params.id}`),
       },
     ],
   },
