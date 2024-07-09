@@ -67,7 +67,7 @@ const EditBooks = () => {
       bookPdfUrl,
     };
     // console.log(bookObj);
-    fetch(`http://localhost:5000/book/${id}`, {
+    fetch(`project-portfolio-dun.vercel.app/book/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
