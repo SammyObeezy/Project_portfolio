@@ -8,7 +8,7 @@ const firebaseConfig = {
   apiKey: "AIzaSyDm5SCkHnoZXsFlyjXXhyDZw5HklmJi8go",
   authDomain: "project-portfolio-dun.vercel.app",
   projectId: "book-wave-744f5",
-  storageBucket: "book-wave-744f5.appspot.com",
+  storageBucket: "project-portfolio-dun.vercel.app.appspot.com",
   messagingSenderId: "824793175947",
   appId: "1:824793175947:web:2cec095f762eb30f10818e",
 };
