@@ -6,9 +6,9 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDm5SCkHnoZXsFlyjXXhyDZw5HklmJi8go",
-  authDomain: "project-portfolio-dun.vercel.app",
+  authDomain: "book-wave-744f5.firebaseapp.com",
   projectId: "book-wave-744f5",
-  storageBucket: "project-portfolio-dun.vercel.app.appspot.com",
+  storageBucket: "book-wave-744f5.appspot.com",
   messagingSenderId: "824793175947",
   appId: "1:824793175947:web:2cec095f762eb30f10818e",
 };
