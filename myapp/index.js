@@ -31,6 +31,8 @@ async function run() {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
+     // Book and Blog collections
+     const blogCollections = client.db("BookInventory").collection("blogs");
     //create a collection of documents
     const bookCollections = client.db("BookInventory").collection("books");
 
@@ -93,6 +95,49 @@ async function run() {
       const result = await bookCollections.findOne(filter);
       res.send(result);
     });
+
+    // Blogs section
+    app.post("/blogs", async (req, res) => {
+      const blogPost = req.body;
+      const result = await blogCollections.insertOne(blogPost);
+      res.send(result)
+    })
+    // Get all blog posts
+    app.get("/blogs", async (req, res) => {
+      const blogs = blogCollections.find();
+      const result = await blogs.toArray();
+      res.send(result)
+    })
+   // Get a single blog post by ID
+   app.get("/blog/:id", async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const result = await blogCollections.findOne(filter); // Find blog post by ID
+    res.send(result); // Send found blog post back to client
+  });
+
+  // Update a blog post by ID using PATCH
+  app.patch("/blog/:id", async (req, res) => {
+    const id = req.params.id;
+    const updateBlogData = req.body; // Data sent from the client to update the blog
+    const filter = { _id: new ObjectId(id) };
+    const updateDoc = {
+      $set: {
+        ...updateBlogData,
+      },
+    };
+    const options = { upsert: true }; // Create new if not exists
+    const result = await blogCollections.updateOne(filter, updateDoc, options);
+    res.send(result); // Send response back to client
+  });
+
+  // Delete a blog post by ID
+  app.delete("/blog/:id", async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: new ObjectId(id) };
+    const result = await blogCollections.deleteOne(filter); // Delete blog post by ID
+    res.send(result); // Send deletion status back to client
+  }); 
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
