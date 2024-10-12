@@ -58,7 +58,7 @@ const UploadBook = () => {
     };
     console.log(bookObj);
     //send data to db
-    fetch("project-portfolio-dun.vercel.app/upload-book", {
+    fetch("http://localhost:5000/upload-book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
