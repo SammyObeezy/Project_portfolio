@@ -11,7 +11,7 @@ const MyFooter = () => {
             <Footer.Title title="BookWave" />
             <Footer.LinkGroup col>
               <Footer.Link href="#">About</Footer.Link>
-              <Footer.Link href="#">Careers</Footer.Link>
+              <Footer.Link href="#"></Footer.Link>
               <Footer.Link href="#">Brand Center</Footer.Link>
               <Footer.Link href="#">Blog</Footer.Link>
             </Footer.LinkGroup>
@@ -19,7 +19,7 @@ const MyFooter = () => {
           <div>
             <Footer.Title title="help center" />
             <Footer.LinkGroup col>
-              <Footer.Link href="#">Discord Server</Footer.Link>
+              <Footer.Link href="#">Discord</Footer.Link>
               <Footer.Link href="#">Twitter</Footer.Link>
               <Footer.Link href="#">Facebook</Footer.Link>
               <Footer.Link href="#">Contact Us</Footer.Link>
