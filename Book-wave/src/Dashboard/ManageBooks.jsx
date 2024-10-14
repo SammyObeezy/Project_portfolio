@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
   useEffect(() => {
-    fetch("project-portfolio-dun.vercel.app/all-books")
+    fetch("http://localhost:5000/all-books")
       .then((res) => res.json())
       .then((data) => setAllBooks(data));
   }, []);
