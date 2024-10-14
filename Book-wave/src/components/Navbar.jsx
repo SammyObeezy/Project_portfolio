@@ -10,23 +10,18 @@ const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
 
   const { user } = useContext(AuthContext);
-  // console.log(user);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
+      setIsSticky(window.scrollY > 100);
     };
     window.addEventListener("scroll", handleScroll);
-
     return () => {
-      window.addEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -37,47 +32,48 @@ const Navbar = () => {
     { link: "Sell Your Book", path: "/admin/dashboard" },
     { link: "Blog", path: "/blog" },
   ];
+
   return (
-    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300">
+    <header className="w-full bg-transparent fixed top-0 left-0 right-0 transition-all ease-in duration-300 z-10">
       <nav
         className={`py-4 lg:px-24 px-4 ${
-          isSticky ? "sticky top-0 left-0 right-0 bg-blue-300" : ""
+          isSticky ? "sticky top-0 left-0 right-0 bg-white shadow-lg" : ""
         }`}
       >
         <div className="flex justify-between items-center text-base gap-8">
-          {/*logo*/}
+          {/* Logo */}
           <Link
             to="/"
-            className="text-2xl font-bold text-red-700 flex items-center gap-2"
+            className="text-2xl font-bold text-red-600 flex items-center gap-2 transition-colors duration-300"
           >
             <FaBlog className="inline-block" />
             BookWave
           </Link>
-          {/* nav items for large devices*/}
+          {/* Nav items for large devices */}
           <ul className="md:flex space-x-12 hidden">
             {navItems.map(({ link, path }) => (
-              <Link
-                key={path}
-                to={path}
-                className="
-                block
-                text-base
-                text-black
-                uppercase
-                cursor-pointer
-                hover:text-blue-700"
-              >
-                {link}
-              </Link>
+              <li key={path}>
+                <Link
+                  to={path}
+                  className="
+                    block
+                    text-black
+                    uppercase
+                    transition-colors duration-300
+                    hover:text-red-600 hover:underline"
+                >
+                  {link}
+                </Link>
+              </li>
             ))}
           </ul>
-          {/* btn for lg devices*/}
+          {/* Button for lg devices */}
           <div className="space-x-12 hidden lg:flex items-center">
             <button>
-              <FaBarsStaggered className="w-5 hover:text-blue-700" />
+              <FaBarsStaggered className="w-5 text-black hover:text-red-600 transition-colors duration-300" />
             </button>
           </div>
-          {/* menu btn for mobile devices*/}
+          {/* Menu button for mobile devices */}
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
@@ -91,22 +87,17 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-        {/*navitems for sm devices*/}
+        {/* Nav items for small devices */}
         <div
-          className={`space-y-3 px-4 mt-16 py-7 bg-blue-700 ${
-            isMenuOpen ? "blog fixed top-0 right-0 left-0" : "hidden"
+          className={`space-y-3 px-4 mt-16 py-7 bg-red-600 rounded-md transition-transform duration-300 ${
+            isMenuOpen ? "fixed top-0 right-0 left-0" : "hidden"
           }`}
         >
           {navItems.map(({ link, path }) => (
             <Link
               key={path}
               to={path}
-              className="
-                block
-                text-base
-                text-white
-                uppercase
-                cursor-pointer"
+              className="block text-base text-white uppercase cursor-pointer transition-colors duration-300 hover:text-black"
             >
               {link}
             </Link>

@@ -1,5 +1,5 @@
 import React from "react";
-import FavBookImg from "../assets/banner03.jpg";
+import FavBookImg from "../assets/bannerx.jpg";
 import { Link } from "react-router-dom";
 const FavBook = () => {
   return (
@@ -12,10 +12,13 @@ const FavBook = () => {
           Find Your Favorite <span className="text-red-700">Book Here</span>
         </h2>
         <p className="mb-10 text-lg md-5/6">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente quo
-          aperiam velit dolorum recusandae eos id asperiores! Animi corrupti ea
-          architecto labore molestias provident earum! Aut quidem sint
-          reprehenderit quo!
+          At BookWave, we believe that reading is not just a hobby; it's a
+          journey that can transport you to new worlds, introduce you to
+          fascinating characters, and inspire profound ideas. Our mission is to
+          revolutionize your reading experience by providing an expansive
+          library, user-friendly purchasing options, and vibrant communities of
+          fellow readers. Whether you're a lifelong book lover or just starting
+          to explore the joys of reading, BookWave is your perfect companion.
         </p>
         {/*starts*/}
         <div className="flex flex-col sm:flex-row justify-between gap-6 md:w-3/4 my-14 ">
