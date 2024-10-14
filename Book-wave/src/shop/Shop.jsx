@@ -30,23 +30,27 @@ const Shop = () => {
       <h2 className="text-5xl font-bold text-center text-gray-800 mb-8">
         Find Your Next Read Here
       </h2>
-      <div className="grid gap-8 px-4 lg:px-24 my-12 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1">
+      {/* Adjusted grid layout */}
+      <div className="grid gap-3 px-4 lg:px-24 my-12 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 grid-cols-2">
         {books.map((book) => (
           <Card
             key={book._id}
             className="shadow-lg rounded-lg transition duration-300 hover:shadow-xl"
           >
-            <img
-              src={book.imageURL}
-              alt={book.bookTitle}
-              className="h-96 w-full object-cover rounded-t-lg"
-            />
+            {/* Image adjusted to be square */}
+            <div className="w-full h-64">
+              <img
+                src={book.imageURL}
+                alt={book.bookTitle}
+                className="h-full w-full object-cover rounded-t-lg"
+              />
+            </div>
             <div className="p-6">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                 {book.bookTitle}
               </h5>
               <p className="font-normal mb-4 text-gray-700">
-                {truncateText(book.bookDescription, 200)}{" "}
+                {truncateText(book.bookDescription, 50)}{" "}
                 {/* Limit to 200 characters */}
               </p>
               <Link
