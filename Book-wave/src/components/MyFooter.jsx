@@ -4,9 +4,9 @@ import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
 const MyFooter = () => {
   return (
-    <Footer className="bg-pink-100 border-t-4 border-red-600 mt-10">
+    <Footer className="bg-gray-100  border-t-4 border-red-600 mt-10">
       {" "}
-      {/* Light pink background */}
+      {/* background */}
       <div className="w-full px-4 lg:px-24">
         <div className="grid w-full grid-cols-1 gap-8 px-6 py-8 md:grid-cols-3">
           {/* BookWave Section */}
@@ -40,7 +40,7 @@ const MyFooter = () => {
           </div>
         </div>
 
-        <div className="w-full bg-gray-800 text-white px-4 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div className="w-full bg-white-100  text-black px-4 py-6 flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <Footer.Copyright href="#" by="Copyright © BookWave" year={2024} />
           <div className="mt-4 flex space-x-6 sm:mt-0 sm:justify-center">
             <Footer.Icon href="#" icon={BsFacebook} />
