@@ -17,22 +17,27 @@ const Shop = () => {
         {books.map((book) => (
           <>
             {" "}
-            <Card>
-              <img src={book.imageURL} alt="" className="h-96" />
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <Card className="max-w-sm p-4 shadow-lg">
+              <img
+                src={book.imageURL}
+                alt={book.bookTitle}
+                className="h-48 w-full object-contain rounded-md"
+              />
+              <h5 className="mt-4 mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
                 {book.bookTitle}
               </h5>
-              <p className="font-normal mb-2 text-gray-700 dark:text-gray-400">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+              <p className="font-normal text-sm text-gray-700 dark:text-gray-400 mb-4">
+                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
               </p>
               <Link
                 to={`/book/${book._id}`}
-                className="bg-orange-500 font-semibold text-white py-2 rounded"
+                className="bg-orange-500 font-semibold text-white py-2 px-4 rounded hover:bg-orange-600"
               >
-                Get A copy
+                Get A Copy
               </Link>
             </Card>
+
+
           </>
         ))}
       </div>
