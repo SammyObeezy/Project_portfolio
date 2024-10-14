@@ -58,6 +58,7 @@ const UploadBook = () => {
     };
     console.log(bookObj);
     //send data to db
+    fetch(`http://localhost:5000/upload-book`, {
     fetch("http://localhost:5000/upload-book", {
       method: "POST",
       headers: {
