@@ -58,7 +58,6 @@ const UploadBook = () => {
     };
     console.log(bookObj);
     //send data to db
-    fetch(`http://localhost:5000/upload-book`, {
     fetch("http://localhost:5000/upload-book", {
       method: "POST",
       headers: {
@@ -68,11 +67,14 @@ const UploadBook = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        //console.log(data);
+        // console.log(data);
         alert("Book uploaded successfully!");
         form.reset();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
-  };
+    }    
   return (
     <div className="px-4 my-12">
       <h2 className="mb-6 text-3xl font-bold">Upload A book</h2>
