@@ -56,7 +56,7 @@ const BookCards = ({ headline, books }) => {
                   {book.bookTitle}
                 </h3>
                 <p className="text-gray-600 text-sm mb-1">{book.authorName}</p>
-                <p className="text-xl font-bold text-red-600">Ksh{book.price}</p>
+                <p className="text-xl font-bold text-red-600">${book.price}</p>
               </Link>
             </SwiperSlide>
           ))}

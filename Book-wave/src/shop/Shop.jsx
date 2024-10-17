@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Card } from "flowbite-react";
 import { Link } from "react-router-dom";
+import { FaHeart, FaShoppingCart, FaDownload } from "react-icons/fa";
 
 const Shop = () => {
   const [books, setBooks] = useState([]);
@@ -11,41 +11,78 @@ const Shop = () => {
       .then((data) => setBooks(data));
   }, []);
 
-  // Function to truncate text
-  const truncateText = (text, maxLength) => {
-    if (text.length <= maxLength) return text;
-    return text.slice(0, maxLength) + "...";
-  };
-
   return (
-    <div className="mt-28 px-4 lg:px-24">
-      <h2 className="text-5xl font-bold text-center">All Books are Here</h2>
-      <div className="grid gap-8 my-12 lg:grid-cols-4 sm:grid-cols-2 md:grid-cols-3 grid-cols-1">
+    <div className="my-16 px-4 lg:px-12">
+      {/* Title Section */}
+      <h2 className="text-5xl font-extrabold text-center mb-16 mt-24 text-gray-900">
+        Discover Our Selection of Must-Read Books
+      </h2>
+
+      {/* Grid Container for Book Items */}
+      <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-8">
         {books.map((book) => (
-          <>
-            {" "}
-            <Card className="max-w-sm p-4 shadow-lg">
+          <div
+            key={book._id}
+            className="relative group p-3 shadow-md hover:shadow-lg transition-shadow duration-300 bg-white rounded-md min-w-[200px]" // Added min-width for wider containers
+          >
+            <Link to={`/book/${book._id}`}>
               <img
                 src={book.imageURL}
                 alt={book.bookTitle}
-                className="h-48 w-full object-contain rounded-md"
+                className="w-full h-[250px] object-fit "
               />
-              <h5 className="mt-4 mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+            </Link>
+
+            {/* Action Icons - Container Changes on Hover */}
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="flex flex-col space-y-2">
+                {/* Button container */}
+                <button className="p-1 rounded-full border border-red-500 group-hover:bg-red-500 transition-all duration-300 hover:bg-white">
+                  <FaHeart
+                    className="fill-red-500 text-red-500 group-hover:fill-white hover:fill-red-500 hover:text-red-500"
+                    size={18}
+                  />
+                </button>
+                <button className="p-1 rounded-full border border-red-500 group-hover:bg-red-500 transition-all duration-300 hover:bg-white">
+                  <FaShoppingCart
+                    className="fill-red-500 text-red-500 group-hover:fill-white hover:fill-red-500 hover:text-red-500"
+                    size={18}
+                  />
+                </button>
+                <button className="p-1 rounded-full border border-red-500 group-hover:bg-red-500 transition-all duration-300 hover:bg-white">
+                  <FaDownload
+                    className="fill-red-500 text-red-500 group-hover:fill-white hover:fill-red-500 hover:text-red-500"
+                    size={18}
+                  />
+                </button>
+              </div>
+            </div>
+
+            {/* Book Details with Larger Text */}
+            <div className="text-left mt-2">
+              <h3 className="text-md lg:text-lg font-bold text-gray-900">
                 {book.bookTitle}
-              </h5>
-              <p className="font-normal text-sm text-gray-700 dark:text-gray-400 mb-4">
-                Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.
+              </h3>
+              <p className="text-sm lg:text-md text-gray-500">
+                {book.downloads
+                  ? `${book.downloads} downloads`
+                  : "No downloads yet"}
               </p>
-              <Link
-                to={`/book/${book._id}`}
-                className="bg-orange-500 font-semibold text-white py-2 px-4 rounded hover:bg-orange-600"
-              >
-                Get A Copy
+              <p className=" text-red-600 mt-1">
+                Ksh: {book.price ? book.price : "Not available"}
+              </p>
+              <p className="text-sm lg:text-md text-gray-600">
+                {book.authorName}
+              </p>
+
+              {/* View Details Button */}
+              <Link to={`/book/${book._id}`}>
+                <button className="mt-3 w-full px-3 py-2 text-sm bg-red-600 text-white rounded-md hover:bg-black transition duration-300">
+                  View Details
+                </button>
               </Link>
-            </Card>
-
-
-          </>
+            </div>
+          </div>
         ))}
       </div>
     </div>
