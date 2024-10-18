@@ -10,6 +10,7 @@ const SingleBook = () => {
     bookDescription,
     category,
     bookPdfUrl,
+    price,
   } = useLoaderData();
 
   return (
@@ -36,6 +37,9 @@ const SingleBook = () => {
         >
           Download PDF
         </a>
+        <p className="text-lg font-semibold text-gray-700 mb-2">
+          Price: {price}
+        </p>
       </div>
     </div>
   );
