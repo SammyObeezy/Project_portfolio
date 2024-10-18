@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import bookPic from "../assets/community1.jpg"; // Update this to your new relevant image
+import bookPic from "../assets/community1.jpg"; 
 
 const PromoBanner = () => {
   return (

@@ -68,9 +68,7 @@ const Shop = () => {
                   ? `${book.downloads} downloads`
                   : "No downloads yet"}
               </p>
-              <p className=" text-red-600 mt-1">
-                Ksh: {book.price ? book.price : "Not available"}
-              </p>
+              
               <p className="text-sm lg:text-md text-gray-600">
                 {book.authorName}
               </p>
