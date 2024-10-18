@@ -7,6 +7,7 @@ const Blog = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
+  const [category, setCategory] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editingBlogId, setEditingBlogId] = useState(null);
 
@@ -29,7 +30,7 @@ const Blog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const blogData = { title, content, author };
+    const blogData = { title, content, author, category };
 
     try {
       if (isEditing) {
@@ -46,6 +47,7 @@ const Blog = () => {
       setTitle("");
       setContent("");
       setAuthor("");
+      setCategory("");
       fetchBlogs();
     } catch (error) {
       console.error("Error saving blog:", error);
@@ -57,6 +59,7 @@ const Blog = () => {
     setTitle(blog.title);
     setContent(blog.content);
     setAuthor(blog.author);
+    setCategory(blog.category);
     setIsEditing(true);
     setEditingBlogId(blog._id);
   };
@@ -116,6 +119,18 @@ const Blog = () => {
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
             />
           </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 font-semibold mb-2">
+              Category:
+            </label>
+            <input
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              required
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
           <button
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-md transition duration-300"
@@ -143,10 +158,20 @@ const Blog = () => {
                 <h3 className="text-2xl font-bold mb-2 text-gray-800">
                   {blog.title}
                 </h3>
-                <p className="text-gray-700 mb-4">{blog.content}</p>
-                <small className="block text-gray-500">
-                  Author: {blog.author}
+                <small className="block text-gray-500 mb-2">
+                  Author: {blog.author} | Category: {blog.category}
                 </small>
+                <p className="text-gray-700 mb-4">
+                  {blog.content.substring(0, 100)}...
+                </p>
+                <button
+                  className="text-blue-600 hover:underline mb-2"
+                  onClick={() =>
+                    console.log("Read More clicked for:", blog._id)
+                  }
+                >
+                  Read More
+                </button>
               </div>
 
               {/* Buttons in a flex container */}

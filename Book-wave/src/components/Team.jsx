@@ -26,7 +26,7 @@ const Team = () => {
             every reader finds their next favorite book effortlessly.
           </div>
           {/* Use flex and wrap to align cards */}
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-7">
             {/* Card for Samuel Waweru */}
             <div className="item w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3 flex justify-center">
               <div className="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 p-4 w-full">

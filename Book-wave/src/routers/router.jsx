@@ -1,23 +1,29 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { Suspense } from "react";
 import App from "../App";
-import Home from "../Home/Home";
-import Shop from "../shop/Shop";
-import About from "../components/About";
-import Blog from "../components/Blog";
-import SingleBook from "../shop/SingleBook";
 import DashboardLayout from "../Dashboard/DashboardLayout";
-import Dashboard from "../Dashboard/Dashboard";
-import UploadBook from "../Dashboard/UploadBook";
-import ManageBooks from "../Dashboard/ManageBooks";
-import EditBooks from "../Dashboard/EditBooks";
-import SignUp from "../components/SignUp";
-import Login from "../components/Login";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import Logout from "../components/Logout";
-import Contact from "../components/Contact"; 
-import FAQs from "../components/Faqs";
-import TermsOfUse from "../components/Terms";
-import PrivacyPolicy from "../components/privacy";
+
+// Lazy-loaded components
+const NotFound = React.lazy(() => import("../components/NotFound"));
+const Home = React.lazy(() => import("../Home/Home"));
+const Shop = React.lazy(() => import("../shop/Shop"));
+const About = React.lazy(() => import("../components/About"));
+const Blog = React.lazy(() => import("../components/Blog"));
+const SingleBook = React.lazy(() => import("../shop/SingleBook"));
+const Dashboard = React.lazy(() => import("../Dashboard/Dashboard"));
+const UploadBook = React.lazy(() => import("../Dashboard/UploadBook"));
+const ManageBooks = React.lazy(() => import("../Dashboard/ManageBooks"));
+const EditBooks = React.lazy(() => import("../Dashboard/EditBooks"));
+const SignUp = React.lazy(() => import("../components/SignUp"));
+const Login = React.lazy(() => import("../components/Login"));
+const Logout = React.lazy(() => import("../components/Logout"));
+const Contact = React.lazy(() => import("../components/Contact"));
+const FAQs = React.lazy(() => import("../components/Faqs"));
+const TermsOfUse = React.lazy(() => import("../components/Terms"));
+const PrivacyPolicy = React.lazy(() => import("../components/Privacy"));
+
+const BASE_URL = "http://localhost:5000"; // Hardcoded base URL
 
 const router = createBrowserRouter([
   {
@@ -26,41 +32,84 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: "/shop",
-        element: <Shop />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Shop />
+          </Suspense>
+        ),
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/blog",
-        element: <Blog />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Blog />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
-        element: <Contact />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
-        path: "/Faqs",
-        element: <FAQs/>,
+        path: "/faqs",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <FAQs />
+          </Suspense>
+        ),
       },
       {
         path: "/privacy",
-        element: <PrivacyPolicy/>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <PrivacyPolicy />
+          </Suspense>
+        ),
       },
       {
         path: "/terms",
-        element: <TermsOfUse/>,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <TermsOfUse />
+          </Suspense>
+        ),
       },
       {
         path: "/book/:id",
-        element: <SingleBook />,
-        loader: ({ params }) =>
-          fetch(`project-portfolio-dun.vercel.app/book/${params.id}`),
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SingleBook />
+          </Suspense>
+        ),
+        loader: ({ params }) => fetch(`${BASE_URL}/book/${params.id}`),
+      },
+      {
+        path: "*", // Catch-all for undefined routes
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <NotFound />
+          </Suspense>
+        ),
       },
     ],
   },
@@ -72,37 +121,62 @@ const router = createBrowserRouter([
         path: "/admin/dashboard",
         element: (
           <PrivateRoute>
-            <Dashboard />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Dashboard />
+            </Suspense>
           </PrivateRoute>
         ),
       },
       {
         path: "/admin/dashboard/upload",
-        element: <UploadBook />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <UploadBook />
+          </Suspense>
+        ),
       },
       {
         path: "/admin/dashboard/manage",
-        element: <ManageBooks />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ManageBooks />
+          </Suspense>
+        ),
       },
       {
         path: "/admin/dashboard/edit-books/:id",
-        element: <EditBooks />,
-        loader: ({ params }) =>
-          fetch(`project-portfolio-dun.vercel.app/book/${params.id}`),
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <EditBooks />
+          </Suspense>
+        ),
+        loader: ({ params }) => fetch(`${BASE_URL}/book/${params.id}`),
       },
     ],
   },
   {
     path: "sign-up",
-    element: <SignUp />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <SignUp />
+      </Suspense>
+    ),
   },
   {
     path: "login",
-    element: <Login />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Login />
+      </Suspense>
+    ),
   },
   {
     path: "logout",
-    element: <Logout />,
+    element: (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Logout />
+      </Suspense>
+    ),
   },
 ]);
 

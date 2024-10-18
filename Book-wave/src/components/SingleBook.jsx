@@ -2,43 +2,55 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const SingleBook = () => {
-  const { id } = useParams();
-  const [book, setBook] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { id } = useParams(); // Get the book ID from the URL
+  const [book, setBook] = useState(null); // State to hold book data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
 
+  // Fetch book details when component mounts or ID changes
   useEffect(() => {
     const fetchBook = async () => {
       try {
         const response = await fetch(`http://localhost:5000/book/${id}`);
+
+        // Check if response is okay
         if (!response.ok) {
           throw new Error("Failed to fetch book data");
         }
+
+        // Parse response to JSON
         const data = await response.json();
+        console.log("Fetched book data:", data); // Debugging log
+
+        // Set the book data and stop loading
         setBook(data);
         setLoading(false);
       } catch (err) {
-        console.error("Error fetching book:", err);
+        console.error("Error fetching book:", err); // Log any errors
         setError(err.message);
-        setLoading(false);
+        setLoading(false); // Stop loading in case of error
       }
     };
 
     fetchBook();
-  }, [id]);
+  }, [id]); // Run when the book ID changes
 
+  // Display loading message while fetching data
   if (loading) {
     return <div className="text-center mt-28">Loading...</div>;
   }
 
+  // Display error message if there is an error
   if (error) {
     return <div className="text-center mt-28 text-red-500">Error: {error}</div>;
   }
 
+  // Display message if no book is found
   if (!book) {
     return <div className="text-center mt-28">No book found</div>;
   }
 
+  // Destructure the book data
   const {
     bookTitle,
     authorName,
@@ -48,11 +60,15 @@ const SingleBook = () => {
     bookPdfUrl,
   } = book;
 
+  // Render the book details
   return (
     <div className="flex flex-col mt-28 lg:flex-row p-5 rounded-lg w-full h-full">
+      {/* Book image */}
       <div className="lg:w-1/2 xl:w-1/3 p-4 lg:p-12">
         <img src={imageURL} alt={bookTitle} className="h-96 mb-4" />
       </div>
+
+      {/* Book details */}
       <div className="lg:w-1/2 xl:w-2/3 p-4 lg:p-12">
         <h1 className="text-2xl font-bold mb-3">{bookTitle}</h1>
         <p className="text-lg font-semibold text-gray-700 mb-2">
@@ -63,8 +79,10 @@ const SingleBook = () => {
         </p>
         <div
           className="text-lg text-gray-600 mb-5"
-          dangerouslySetInnerHTML={{ __html: bookDescription }}
+          dangerouslySetInnerHTML={{ __html: bookDescription }} // Render HTML safely
         />
+
+        {/* Link to the book PDF */}
         {bookPdfUrl && (
           <a
             href={bookPdfUrl}
