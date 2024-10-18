@@ -9,10 +9,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 // import required modules
 import { Pagination } from "swiper/modules";
-import proPic1 from "../assets/profile-2.png"; // Ensure you have a profile picture imported
-import proPic2 from "../assets/profile-3.png"; // Ensure you have a profile picture imported
-import proPic3 from "../assets/profile-4.png"; // Ensure you have a profile picture imported
-import proPic4 from "../assets/profile-5.png"; // Ensure you have a profile picture imported
+import proPic1 from "../assets/profile-2.png"; 
+import proPic2 from "../assets/profile-3.png"; 
+import proPic3 from "../assets/profile-4.png"; 
+import proPic4 from "../assets/profile-5.png"; 
 
 const Review = () => {
   return (
@@ -45,7 +45,7 @@ const Review = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <div className="p-5 bg-white rounded shadow-lg">
+            <div className="p-5 bg-amber-100  rounded shadow-lg">
               <div className="text-amber-400 flex gap-2">
                 <FaStar />
                 <FaStar />
@@ -72,7 +72,7 @@ const Review = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="p-5 bg-white rounded shadow-lg">
+            <div className="p-5 bg-amber-100 rounded shadow-lg">
               <div className="text-amber-400 flex gap-2">
                 <FaStar />
                 <FaStar />
@@ -99,7 +99,7 @@ const Review = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="p-5 bg-white rounded shadow-lg">
+            <div className="p-5 bg-amber-100  rounded shadow-lg">
               <div className="text-amber-400 flex gap-2">
                 <FaStar />
                 <FaStar />
@@ -126,7 +126,7 @@ const Review = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div className="p-5 bg-white rounded shadow-lg">
+            <div className="p-5 bg-amber-100  rounded shadow-lg">
               <div className="text-amber-400 flex gap-2">
                 <FaStar />
                 <FaStar />

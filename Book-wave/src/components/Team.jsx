@@ -26,7 +26,7 @@ const Team = () => {
             every reader finds their next favorite book effortlessly.
           </div>
           {/* Use flex and wrap to align cards */}
-          <div className="flex flex-wrap justify-center">
+          <div className="flex flex-wrap justify-center gap-7">
             {/* Card for Samuel Waweru */}
             <div className="item w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-3 flex justify-center">
               <div className="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 p-4 w-full">
@@ -148,7 +148,7 @@ const Team = () => {
               </div>
             </div>
 
-            {/* Add more team members as needed here, following the same structure */}
+           
           </div>
         </div>
       </section>
@@ -161,13 +161,11 @@ const Team = () => {
               BookWave
             </Link>
           </div>
-          <h2 className="section-heading text-5xl text-center text-red-600 mb-3">
-            About Us
-          </h2>
+        
 
           <div className="author-bio max-w-2xl mx-auto">
             <h3 className="text-3xl font-semibold mb-4 text-black">
-              Our Story
+              From Team
             </h3>
             <p className="text-black mb-6">
               BookWave began as a shared passion among our team members at ALX

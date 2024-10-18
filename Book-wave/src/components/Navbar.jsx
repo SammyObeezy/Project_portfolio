@@ -27,7 +27,7 @@ const Navbar = () => {
 
   const navItems = [
     { link: "Home", path: "/" },
-    { link: "About", path: "/about" },
+    { link: "About Us", path: "/about" },
     { link: "Shop", path: "/shop" },
     { link: "Sell Your Book", path: "/admin/dashboard" },
     { link: "Blog", path: "/blog" },
@@ -89,7 +89,7 @@ const Navbar = () => {
         </div>
         {/* Nav items for small devices */}
         <div
-          className={`space-y-3 px-4 mt-16 py-7 bg-red-600 rounded-md transition-transform duration-300 ${
+          className={`space-y-3 px-4 mt-16 py-7 bg-white rounded-md transition-transform duration-300 ${
             isMenuOpen ? "fixed top-0 right-0 left-0" : "hidden"
           }`}
         >
@@ -97,7 +97,24 @@ const Navbar = () => {
             <Link
               key={path}
               to={path}
-              className="block text-base text-white uppercase cursor-pointer transition-colors duration-300 hover:text-black"
+              className="
+    block
+    text-base
+    text-black
+    uppercase
+    cursor-pointer
+    transition-all
+    duration-300
+    hover:text-red-600
+    hover:scale-105
+    transform
+    hover:font-semibold
+    hover:bg-gray-100
+    px-4
+    py-2
+    rounded-md
+  "
+              onClick={() => setIsMenuOpen(false)}
             >
               {link}
             </Link>
