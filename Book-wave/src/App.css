@@ -2,3 +2,15 @@ header,
 nav {
   z-index: 100001 !important;
 }
+/* global.css */
+html {
+  font-size: 14px; 
+  
+}
+
+body {
+  
+  font-size: 15px; 
+  color: #333;
+}
+

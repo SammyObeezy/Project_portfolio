@@ -7,33 +7,32 @@ import { Link } from "react-router-dom";
 
 const BookCards = ({ headline, books }) => {
   return (
-    <div className="my-16 px-4 lg:px-24">
+    <div className="my-16 px-4 lg:px-24 book-cards">
       <h2 className="text-5xl text-center font-bold text-black my-5">
         {headline}
       </h2>
-      {/* Books */}
       <div className="mt-12">
         <Swiper
           slidesPerView={2}
-          spaceBetween={10} // Spacing between slides
+          spaceBetween={10}
           pagination={{
             clickable: true,
           }}
           breakpoints={{
             640: {
-              slidesPerView: 2, // Show 2 slides on mobile screens
+              slidesPerView: 2,
               spaceBetween: 10,
             },
             768: {
-              slidesPerView: 5, // Show 3 slides on tablets
+              slidesPerView: 5,
               spaceBetween: 15,
             },
             1024: {
-              slidesPerView: 8, // Show 4 slides on larger screens
+              slidesPerView: 8,
               spaceBetween: 20,
             },
             1280: {
-              slidesPerView: 8, // Show 5 slides on extra-large screens
+              slidesPerView: 8,
               spaceBetween: 20,
             },
           }}
@@ -43,20 +42,17 @@ const BookCards = ({ headline, books }) => {
           {books.map((book) => (
             <SwiperSlide key={book._id} className="flex justify-center">
               <Link to={`/book/${book._id}`} className="block p-0">
-                {" "}
-                {/* Removed padding around the link */}
                 <div className="relative">
                   <img
                     src={book.imageURL}
                     alt={book.bookTitle}
-                    className="w-full h-[300px] object-contain" // Ensures the image is larger and not cropped
+                    className="w-full h-[300px] object-contain"
                   />
                 </div>
                 <h3 className="text-lg font-semibold text-black mt-2 mb-1">
                   {book.bookTitle}
                 </h3>
                 <p className="text-gray-600 text-sm mb-1">{book.authorName}</p>
-               
               </Link>
             </SwiperSlide>
           ))}

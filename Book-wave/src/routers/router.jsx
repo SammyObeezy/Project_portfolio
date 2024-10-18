@@ -14,6 +14,10 @@ import SignUp from "../components/SignUp";
 import Login from "../components/Login";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Logout from "../components/Logout";
+import Contact from "../components/Contact"; 
+import FAQs from "../components/Faqs";
+import TermsOfUse from "../components/Terms";
+import PrivacyPolicy from "../components/privacy";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +39,22 @@ const router = createBrowserRouter([
       {
         path: "/blog",
         element: <Blog />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/Faqs",
+        element: <FAQs/>,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPolicy/>,
+      },
+      {
+        path: "/terms",
+        element: <TermsOfUse/>,
       },
       {
         path: "/book/:id",
