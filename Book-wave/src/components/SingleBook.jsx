@@ -58,7 +58,12 @@ const SingleBook = () => {
     bookDescription,
     category,
     bookPdfUrl,
+<<<<<<< HEAD
+    price,
+  } = useLoaderData();
+=======
   } = book;
+>>>>>>> a05b065fa724b11f4eb42075194dd028f923e620
 
   // Render the book details
   return (
@@ -81,6 +86,18 @@ const SingleBook = () => {
           className="text-lg text-gray-600 mb-5"
           dangerouslySetInnerHTML={{ __html: bookDescription }} // Render HTML safely
         />
+<<<<<<< HEAD
+        <a
+          href={bookPdfUrl}
+          download
+          className="bg-orange-500 text-white px-4 py-3 rounded-md text-base hover:bg-orange-600 w-max"
+        >
+          Download PDF
+        </a>
+        <p className="text-lg font-semibold text-gray-700 mb-2">
+          Price: {price}
+        </p>
+=======
 
         {/* Link to the book PDF */}
         {bookPdfUrl && (
@@ -93,6 +110,7 @@ const SingleBook = () => {
             View PDF
           </a>
         )}
+>>>>>>> a05b065fa724b11f4eb42075194dd028f923e620
       </div>
     </div>
   );
