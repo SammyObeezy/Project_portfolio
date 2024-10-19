@@ -4,6 +4,7 @@ import App from "../App";
 import DashboardLayout from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
+
 // Lazy-loaded components
 const NotFound = React.lazy(() => import("../components/NotFound"));
 const Home = React.lazy(() => import("../Home/Home"));
@@ -22,8 +23,9 @@ const Contact = React.lazy(() => import("../components/Contact"));
 const FAQs = React.lazy(() => import("../components/Faqs"));
 const TermsOfUse = React.lazy(() => import("../components/Terms"));
 const PrivacyPolicy = React.lazy(() => import("../components/Privacy"));
+const ConnectPage = React.lazy(() => import("../components/ConnectPage"));
 
-const BASE_URL = "http://localhost:5000"; // Hardcoded base URL
+const BASE_URL = "http://localhost:5000";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +77,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <FAQs />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/connectPage",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ConnectPage />
           </Suspense>
         ),
       },
