@@ -1,3 +1,6 @@
+![Screenshot (782)](https://github.com/user-attachments/assets/505812a5-e1bd-4ba2-ae93-8ceedd09b4cd)
+
+
 BookWave MVP
 
 Project Overview
