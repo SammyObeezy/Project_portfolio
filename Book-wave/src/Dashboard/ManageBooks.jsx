@@ -49,7 +49,7 @@ const ManageBooks = () => {
               </Table.Cell>
               <Table.Cell>{book.authorName}</Table.Cell>
               <Table.Cell>{book.category}</Table.Cell>
-              <Table.Cell>$2999</Table.Cell>
+              <Table.Cell>not updated</Table.Cell>
               <Table.Cell>
                 <Link
                   to={`/admin/dashboard/edit-books/${book._id}`}
