@@ -32,6 +32,7 @@ const Navbar = () => {
     { link: "Connect", path: "/connectPage" },
     { link: "Sell Your Book", path: "/admin/dashboard" },
     { link: "Blog", path: "/blog" },
+    { link: "Rent", path: "/RentForm"}
   ];
 
   return (

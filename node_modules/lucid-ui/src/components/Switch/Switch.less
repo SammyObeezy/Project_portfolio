@@ -1,0 +1,222 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Switch-height: 22px;
+@Switch-width: 40px;
+@Switch-animation-timing: 0.1s linear;
+@Switch-selected-transform: translate(16px, 0);
+
+@Switch-container-height: 16px;
+@Switch-container-offset: @size-XXS;
+@Switch-container-width: 32px;
+
+@Switch-glow-offset: 5px;
+@Switch-glow-radius: @size-S;
+@Switch-glow-scale: scale(1.556);
+
+@Switch-handle-offset: @size-XS;
+@Switch-handle-radius: 5px;
+@Switch-handle-scale: scale(1.125);
+
+@Switch-disabled-color: @color-lightGray;
+@Switch-disabled-border-color: @color-gray;
+
+.@{prefix}-Switch {
+	cursor: pointer;
+	display: inline-block;
+	height: @Switch-height;
+	position: relative;
+	user-select: none;
+	width: @Switch-width;
+
+	&-is-disabled {
+		cursor: not-allowed;
+	}
+
+	&-native {
+		opacity: 0;
+	}
+
+	&-visualization-container {
+		.box-sizing();
+
+		background-color: @color-white;
+		border-radius: (@Switch-container-height / 2);
+		border: 1px solid @color-transparent-gray-30-new;
+		height: @Switch-container-height;
+		left: @Switch-container-offset;
+		position: absolute;
+		top: @Switch-container-offset;
+		// transition: @Switch-animation-timing;
+		width: @Switch-container-width;
+	}
+
+	&-visualization-handle {
+		.box-sizing();
+
+		background-color: @color-white;
+		border-radius: @Switch-handle-radius;
+		border: 1px solid @color-transparent-gray-30-new;
+		height: @Switch-handle-radius * 2;
+		left: @Switch-handle-offset;
+		position: absolute;
+		top: @Switch-handle-offset;
+		// transition: @Switch-animation-timing;
+		width: @Switch-handle-radius * 2;
+	}
+
+	&:hover &-visualization-handle {
+		background-color: @color-white;
+		border: 1px solid @color-primary;
+	}
+
+	&:hover &-visualization-container {
+		border: 1px solid @color-primary;
+	}
+
+	&-is-selected {
+		.@{prefix}-Switch-visualization-container {
+			background-color: @color-white;
+			border: 1px solid @color-primary;
+		}
+
+		.@{prefix}-Switch-visualization-handle {
+			border: none;
+			background-color: @color-primary;
+			transform: @Switch-selected-transform;
+		}
+
+		&:hover {
+			& > span.@{prefix}-Switch-visualization-container {
+				opacity: 0.8;
+			}
+
+			& > span.@{prefix}-Switch-visualization-handle {
+				border: none;
+				background-color: @color-primary;
+				opacity: 0.8;
+			}
+		}
+	}
+
+	&-is-disabled {
+		& .@{prefix}-Switch-visualization-container {
+			background-color: @Switch-disabled-color;
+			border-color: @Switch-disabled-border-color;
+		}
+
+		& .@{prefix}-Switch-visualization-handle {
+			background-color: transparent;
+			border-color: @Switch-disabled-border-color;
+		}
+
+		&:hover {
+			& .@{prefix}-Switch-visualization-container {
+				background-color: @Switch-disabled-color;
+				border-color: @Switch-disabled-border-color;
+			}
+
+			& .@{prefix}-Switch-visualization-handle {
+				background-color: transparent;
+				border-color: @Switch-disabled-border-color;
+			}
+		}
+	}
+
+	&-is-disabled.@{prefix}-Switch-is-selected {
+		& .@{prefix}-Switch-visualization-container {
+			background-color: @color-white;
+			border-color: @color-primary;
+			opacity: 0.5;
+		}
+
+		& .@{prefix}-Switch-visualization-handle {
+			background-color: @color-primary;
+			opacity: 0.5;
+			border-color: transparent;
+		}
+
+		&:hover {
+			& .@{prefix}-Switch-visualization-container {
+				background-color: @color-white;
+				border-color: @color-primary;
+				opacity: 0.5;
+			}
+
+			& .@{prefix}-Switch-visualization-handle {
+				background-color: @color-primary;
+				opacity: 0.5;
+				border-color: transparent;
+			}
+		}
+	}
+
+	&-is-include-exclude {
+		.@{prefix}-Switch-visualization-handle {
+			background-color: @color-secondary-1;
+			border-color: @color-secondary-1;
+		}
+
+		.@{prefix}-Switch-visualization-container {
+			border-color: @color-secondary-1;
+		}
+
+		&.@{prefix}-Switch-is-selected {
+			.@{prefix}-Switch-visualization-handle {
+				background-color: @color-secondary-4;
+				border: 0;
+			}
+
+			.@{prefix}-Switch-visualization-container {
+				border-color: @color-secondary-4;
+			}
+		}
+
+		&:hover {
+			.@{prefix}-Switch-visualization-handle {
+				border-color: @color-secondary-1;
+				background-color: @color-secondary-1;
+				opacity: 0.8;
+			}
+			.@{prefix}-Switch-visualization-container {
+				border-color: @color-secondary-1;
+			}
+		}
+
+		&:hover.@{prefix}-Switch-is-selected {
+			.@{prefix}-Switch-visualization-container{
+				border-color: @color-secondary-4;
+			}
+			.@{prefix}-Switch-visualization-handle {
+				border-color: @color-secondary-4;
+				background-color: @color-secondary-4;
+			}
+		}
+
+		&.@{prefix}-Switch-is-disabled:not(.@{prefix}-Switch-is-selected) {
+			& .@{prefix}-Switch-visualization-container,
+			& .@{prefix}-Switch-visualization-handle {
+				opacity: 0.5;
+				border-color: @color-secondary-1;
+			}
+		}
+
+		&.@{prefix}-Switch-is-selected.@{prefix}-Switch-is-disabled {
+			&:hover {
+				.@{prefix}-Switch-visualization-handle {
+					background-color: @color-secondary-4;
+				}
+
+				.@{prefix}-Switch-visualization-container {
+					border-color: @color-secondary-4;
+				}
+			}
+		}
+	}
+
+	&-is-selected:hover &-visualization-handle {
+		// transform: @Switch-selected-transform @Switch-handle-scale;
+		background-color: white;
+		border: 1px solid @color-primary;
+	}
+}

@@ -1,0 +1,49 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-RadioButtonLabeled {
+	align-items: flex-start;
+	color: @color-darkGray;
+	cursor: pointer;
+	display: flex;
+	font-size: @fontSize;
+	justify-content: flex-start;
+	width: fit-content;
+
+	> .@{prefix}-RadioButton {
+		flex: 0 0 @RadioButton-size;
+		margin-right: @size-XXS;
+	}
+
+	&-label {
+		padding-top: 3px;
+	}
+
+	&&-is-disabled {
+		color: @color-darkGray;
+		cursor: not-allowed;
+	}
+
+	&:hover .@{prefix}-RadioButton-visualization-container {
+		border: @size-borderWidthFocused solid @color-primary;
+	}
+
+	&&-is-disabled .@{prefix}-RadioButton-visualization-container,
+	&&-is-disabled:hover .@{prefix}-RadioButton-visualization-container {
+		background-color: rgba(0, 0, 0, 0.05);
+		border-color: rgba(0, 0, 0, 0.1);
+	}
+
+	&&-is-disabled:hover .@{prefix}-RadioButton-visualization-glow {
+		.opacity(0);
+	}
+
+	&&-is-disabled&&-is-selected:hover
+		> .@{prefix}-RadioButton
+		.@{prefix}-RadioButton-visualization-container,
+	&&-is-selected
+		> .@{prefix}-RadioButton
+		.@{prefix}-RadioButton-visualization-container {
+		border-color: @color-primary;
+	}
+}

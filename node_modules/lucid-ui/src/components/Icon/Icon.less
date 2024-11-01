@@ -1,0 +1,168 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-Icon {
+	.no-firefox-svg-aliasing();
+
+	display: inline-block;
+	vertical-align: top; // Prevents automatic addition of bottom margin.
+
+	fill: none;
+	stroke-miterlimit: 10;
+	stroke-linecap: square;
+	stroke-width: 1.3; // Designed for icons at 16x16
+
+	// Our icons are designed in a 16x16 grid using primarily strokes so it's
+	// possible for some small piece of the edges to overflow. This allows the
+	// entire, unclipped icon to be displayed without affecting the bounding box.
+	overflow: visible;
+
+	> path,
+	> rect,
+	> circle {
+		transform-origin: center center;
+		vector-effect: non-scaling-stroke; // ensures we keep consistent stroke-width regardless of size
+	}
+
+	&-color-neutral-dark {
+		stroke: @color-neutral-9;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+	 		stroke: darken(@color-neutral-9, 7%);
+	 	}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-neutral-light {
+		stroke: @color-neutral-6;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-neutral-6, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-neutral-extra-light {
+		stroke: @color-neutral-1;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-neutral-1, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-primary {
+		stroke: @color-primary;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-primary, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-white {
+		stroke: @color-white;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-white, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-success {
+		stroke: @featured-color-success;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@featured-color-success, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-warning {
+		stroke: @featured-color-warning;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@featured-color-warning, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-secondary-one {
+		stroke: @color-secondary-1;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-secondary-1, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+ 	}
+
+	&-color-secondary-two {
+		stroke: @color-secondary-2;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-secondary-2, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-secondary-three {
+		stroke: @color-secondary-3;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-secondary-3, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-color-secondary-five {
+		stroke: @color-secondary-5;
+
+		&.@{prefix}-Icon-is-clickable:hover {
+			stroke: darken(@color-secondary-5, 7%);
+		}
+
+		&.@{prefix}-Icon-is-disabled {
+			stroke: @color-darkGray;
+		}
+	}
+
+	&-is-clickable {
+		cursor: pointer;
+	}
+
+	&-is-disabled {
+		opacity: @opacity-disabled;
+		cursor: not-allowed;
+	}
+}
+

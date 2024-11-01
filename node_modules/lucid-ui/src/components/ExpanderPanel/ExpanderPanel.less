@@ -1,0 +1,55 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-ExpanderPanel {
+	&-icon {
+		.box-sizing();
+
+		width: @size-expander-button;
+		height: @size-expander-button;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-right: @size-S;
+	}
+
+	&-header {
+		font-size: @size-font-XL;
+		line-height: @size-font-XL;
+		font-weight: 500;
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+
+		&:hover {
+			> .@{prefix}-ExpanderPanel-icon {
+				background-color: @color-neutral-3;
+			}
+		}
+	}
+
+	> .@{prefix}-Panel-Header {
+		border-bottom: none;
+	}
+
+	&-is-disabled {
+		.opacity();
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			color: @color-disabledText;
+			.no-cursor();
+		}
+	}
+
+	// Selector is a little funky to increase specificity
+	&&-is-collapsed > .@{prefix}-Panel-content {
+		margin-bottom: 0;
+	}
+}
+

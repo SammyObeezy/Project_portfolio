@@ -1,0 +1,243 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Sidebar-Divider-width: @size-XS;
+@Sidebar-transition-duration: @timing-animation-fade;
+@Sidebar-transition-half-duration: (@Sidebar-transition-duration / 2);
+@Sidebar-transition-third-duration: (@Sidebar-transition-duration / 3);
+@Sidebar-zIndex: 10;
+
+.@{prefix}-Sidebar {
+	display: flex;
+	align-items: stretch;
+	height: 100%;
+	width: 100%;
+
+	& > .@{prefix}-SplitVertical-inner {
+		width: 100%;
+
+		& > .@{prefix}-Sidebar-Bar {
+			position: relative;
+			z-index: @Sidebar-zIndex;
+			background-color: @color-white;
+			overflow: auto;
+			display: flex;
+			flex-direction: column;
+
+			.@{prefix}-Sidebar-is-position-left& {
+				border-right: @size-borderWidth solid @color-neutral-4;
+			}
+
+			.@{prefix}-Sidebar-is-position-right& {
+				border-left: @size-borderWidth solid @color-neutral-4;
+			}
+
+			& > .@{prefix}-Sidebar-Bar-overlay {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-color: @color-neutral-3;
+				opacity: 1;
+				z-index: @Sidebar-zIndex;
+
+				.@{prefix}-SplitVertical-is-expanded& {
+					opacity: 0;
+					pointer-events: none;
+				}
+			}
+
+			& > .@{prefix}-Sidebar-Bar-header {
+				background-color: @color-neutral-3;
+				color: @color-textColor;
+				font-size: 16px;
+				line-height: 20px;
+				font-weight: @font-weight-medium;
+				display: flex;
+				flex-shrink: 0;
+
+				.@{prefix}-Sidebar-is-position-left& {
+					flex-direction: row;
+				}
+
+				.@{prefix}-Sidebar-is-position-right& {
+					flex-direction: row-reverse;
+				}
+
+				& > .@{prefix}-Sidebar-Bar-Title {
+					.@{prefix}-Sidebar-is-position-left& {
+						margin: @size-XS auto @size-XS @size-standard;
+					}
+
+					.@{prefix}-Sidebar-is-position-right& {
+						margin: @size-XS auto @size-XS 0;
+					}
+				}
+
+				& > .@{prefix}-Sidebar-expander {
+					.no-safari-flicker();
+					.box-sizing();
+
+					align-self: flex-start;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-shrink: 0;
+					height: @size-expander-button;
+					width: @size-expander-button;
+					margin-top: 2px;
+					cursor: pointer;
+					z-index: @Sidebar-zIndex + 1;
+
+					&:focus {
+						background: none;
+					}
+
+					.@{prefix}-ChevronIcon {
+						stroke: @color-neutral-6;
+					}
+				}
+			}
+
+			& > .@{prefix}-Sidebar-Bar-content {
+				overflow: auto;
+				flex: 1;
+			}
+
+			&
+				> .@{prefix}-Sidebar-Bar-content.@{prefix}-Sidebar-Bar-content-has-gutters {
+				padding: @size-XS;
+			}
+		}
+
+		// Triple specificity to beat some styles in SplitVertical.less
+		&
+			> .@{prefix}-SplitVertical-Divider.@{prefix}-Sidebar-Divider.@{prefix}-Sidebar-Divider {
+			position: relative;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			background-color: @color-neutral-3;
+			width: @Sidebar-Divider-width;
+			z-index: @Sidebar-zIndex - 1;
+
+			.@{prefix}-Sidebar-is-position-left& {
+				transform: translateX(-@Sidebar-Divider-width);
+				border-right: @color-neutral-4;
+			}
+
+			.@{prefix}-Sidebar-is-position-right& {
+				transform: translateX(@Sidebar-Divider-width);
+				border-left: @color-neutral-4;
+			}
+
+			.@{prefix}-SplitVertical-is-expanded& {
+				transform: translateX(0);
+			}
+
+			.@{prefix}-Sidebar-is-resize-disabled& {
+				display: none;
+			}
+
+			.@{prefix}-Sidebar-Divider-gripper {
+				cursor: grab;
+
+				transform: translateX(-0.5px);
+			}
+
+			&:hover {
+				background-color: @color-neutral-4;
+
+				cursor: grab;
+
+				.@{prefix}-Sidebar-Divider-gripper {
+					stroke: @color-darkGray;
+				}
+			}
+
+			&:active {
+				cursor: grabbing;
+			}
+		}
+
+		& > .@{prefix}-Sidebar-Primary {
+			overflow: auto;
+			display: flex;
+			flex-direction: column;
+
+			.@{prefix}-Sidebar-is-position-left& {
+				margin-left: -@Sidebar-Divider-width;
+
+				.@{prefix}-Sidebar-is-resize-disabled& {
+					margin-left: 0;
+				}
+
+				.@{prefix}-SplitVertical-is-expanded& {
+					margin-left: 0;
+				}
+			}
+
+			.@{prefix}-Sidebar-is-position-right& {
+				margin-right: -@Sidebar-Divider-width;
+
+				.@{prefix}-Sidebar-is-resize-disabled& {
+					margin-right: 0;
+				}
+
+				.@{prefix}-SplitVertical-is-expanded& {
+					margin-right: 0;
+				}
+			}
+
+			& > .@{prefix}-Sidebar {
+				flex: 1;
+			}
+
+			// Addresses a Firefox specific rendering issue with a Submarine nested in a Sidebar.
+			& > .@{prefix}-Submarine,
+			x:-moz-any-link,
+			x:default {
+				display: block;
+				height: 100%;
+			}
+		}
+	}
+
+	&.@{prefix}-SplitVertical-is-animated.@{prefix}-SplitVertical-is-animated {
+		& > .@{prefix}-SplitVertical-inner {
+			& > .@{prefix}-Sidebar-Bar {
+				& > .@{prefix}-Sidebar-Bar-overlay {
+					transition: opacity @Sidebar-transition-half-duration;
+				}
+			}
+
+			& > .@{prefix}-SplitVertical-Divider.@{prefix}-Sidebar-Divider {
+				transition: transform @Sidebar-transition-third-duration,
+					background-color @Sidebar-transition-third-duration;
+
+				.@{prefix}-SplitVertical-is-expanded& {
+					transition: transform @Sidebar-transition-third-duration
+							@Sidebar-transition-duration,
+						background-color @Sidebar-transition-third-duration;
+				}
+			}
+
+			& > .@{prefix}-Sidebar-Primary {
+				.@{prefix}-Sidebar-is-position-left& {
+					transition: margin-left @Sidebar-transition-half-duration linear;
+				}
+
+				.@{prefix}-Sidebar-is-position-right& {
+					transition: margin-right @Sidebar-transition-third-duration;
+
+					.@{prefix}-SplitVertical-is-expanded& {
+						transition: margin-right @Sidebar-transition-third-duration
+							@Sidebar-transition-duration;
+					}
+				}
+			}
+		}
+	}
+}

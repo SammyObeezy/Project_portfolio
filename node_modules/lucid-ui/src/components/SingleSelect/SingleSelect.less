@@ -1,0 +1,116 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@SingleSelect-size-controlHeight: @size-height-standard;
+
+.@{prefix}-SingleSelect {
+	.select-title {
+		color: @color-neutral-7;
+		font-weight: @font-weight-regular;
+		margin-right: 4px;
+	}
+
+	&-Control {
+		.no-safari-flicker();
+		.box-sizing();
+
+		background-color: @featured-color-default-backgroundColor;
+		cursor: pointer;
+		height: @SingleSelect-size-controlHeight;
+		display: flex;
+		outline: none;
+		border: 1px solid @featured-color-default-borderColor;
+		font-size: @fontSize;
+		font-weight: @font-weight-medium;
+		color: @color-darkGray;
+		line-height: @size-height-standard;
+		padding: 0 @size-S;
+		align-items: center;
+		white-space: nowrap;
+
+		&&-is-invisible {
+			border: 1px solid transparent;
+			background-color: transparent;
+
+			&.@{prefix}-SingleSelect-Control-is-selected {
+				border: 1px solid @featured-color-primary-borderColor;
+				background-color: @color-primary-light;
+			}
+
+			&.@{prefix}-SingleSelect-Control-is-expanded {
+				background-color: transparent;
+
+				&.@{prefix}-SingleSelect-Control-is-null-option {
+					border: 1px solid transparent;
+
+					.@{prefix}-SingleSelect-Control-content {
+						.opacity(@opacity-disabled);
+					}
+				}
+			}
+		}
+
+		&-content {
+			display: flex;
+			align-items: center;
+			margin-right: @size-S;
+		}
+
+		.@{prefix}-ChevronIcon {
+			margin-left: auto;
+		}
+
+		&.@{prefix}-SingleSelect-Control-is-selected&.@{prefix}-SingleSelect-Control-is-null-option
+			.@{prefix}-SingleSelect-Control-content {
+			.opacity(@opacity-disabled);
+		}
+
+		&:not(.@{prefix}-SingleSelect-Control-is-disabled)
+			&:not(.@{prefix}-SingleSelect-Control-is-expanded),
+		&:not(.@{prefix}-SingleSelect-Control-is-selected) {
+			&:hover {
+				background-color: @color-neutral-3;
+			}
+
+			&:focus {
+				background-color: @color-neutral-4;
+			}
+		}
+
+		// States
+		&-is-highlighted,
+		&-is-selected {
+			border: 1px solid @featured-color-primary-borderColor;
+			background-color: @color-primary-light;
+
+			&:hover {
+				background-color: @color-primary-light-hover;
+			}
+		}
+
+		&-is-expanded {
+			z-index: @zindex-tooltip;
+		}
+
+		&-is-selected&-is-expanded {
+			background-color: @featured-color-default-backgroundColor;
+		}
+
+		&-is-null-option {
+			background-color: @featured-color-default-backgroundColor;
+			border: 1px solid @featured-color-default-borderColor;
+		}
+
+		&-is-disabled {
+			.opacity(@opacity-disabled);
+
+			cursor: not-allowed;
+		}
+	}
+}
+
+.@{prefix}-DropMenu-label {
+	text-transform: uppercase;
+	color: @color-neutral-6;
+	font-weight: @font-weight-medium;
+}

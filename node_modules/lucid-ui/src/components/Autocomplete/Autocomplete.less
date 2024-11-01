@@ -1,0 +1,101 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Autocomplete-size-menu-maxHeight: 220px;
+@Autocomplete-size-controlHeight: @size-height-standard;
+
+.@{prefix}-Autocomplete {
+	&:not(.@{prefix}-ContextMenu-FlyOut) {
+		width: 100%;
+	}
+
+	.@{prefix}-ContextMenu {
+		width: 100%;
+	}
+
+	& &-Control {
+		.no-safari-flicker();
+		.box-sizing();
+
+		cursor: pointer;
+		height: @Autocomplete-size-controlHeight;
+		display: flex;
+		outline: none;
+		border: 1px solid @color-borderColor;
+		border-radius: @size-borderRadius;
+		font-size: @fontSize;
+		color: @color-black;
+		line-height: @size-height-standard;
+		padding: 0 @size-S;
+		align-items: center;
+
+		// The highly specific selector makes it so global input styles
+		// are less likely to affect the Autocomplete input.
+		& .@{prefix}-Autocomplete-Control-input {
+			background: none @color-transparent;
+			border: 0 solid @color-transparent;
+			outline: none;
+			font-size: @fontSize;
+			font-weight: normal;
+			color: @color-textColor;
+			margin: 0;
+			padding: 0;
+			width: 100%;
+		}
+
+		.@{prefix}-ChevronIcon {
+			stroke: @color-black;
+			width: 8px;
+			height: 8px;
+			margin-left: auto;
+		}
+
+		// States
+
+		&-is-expanded {
+			border-color: @color-primary;
+		}
+
+		&-is-disabled {
+			.opacity();
+
+			cursor: not-allowed;
+
+			input {
+				cursor: not-allowed;
+			}
+		}
+	}
+
+	&.@{prefix}-DropMenu-is-expanded {
+		&.@{prefix}-DropMenu-direction-up {
+			.@{prefix}-Autocomplete-Control {
+				border-radius: 0 0 @size-borderRadius @size-borderRadius;
+			}
+		}
+
+		&.@{prefix}-DropMenu-direction-down {
+			.@{prefix}-Autocomplete-Control {
+				border-radius: @size-borderRadius @size-borderRadius 0 0;
+			}
+		}
+
+		.@{prefix}-DropMenu-Control {
+			z-index: @zindex-tooltip;
+		}
+	}
+
+	&.@{prefix}-ContextMenu-FlyOut {
+		max-height: @Autocomplete-size-menu-maxHeight;
+	}
+
+	&-Option-suggestion-match,
+	&-Option-suggestion-post,
+	&-Option-suggestion-pre {
+		white-space: pre;
+	}
+
+	&-Option-suggestion-match {
+		text-decoration: underline;
+	}
+}

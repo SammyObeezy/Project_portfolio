@@ -1,0 +1,58 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/mixins.less';
+
+.@{prefix}-LoadingIcon {
+	// simple rotation in IE11 because IE11 doesn't support svg animations
+	-ms-animation: ~"@{prefix}-LoadingIcon-rotate-animation" linear infinite;
+	stroke: none !important; // using a hammer cause this icon should never have a stroke
+
+	// Have to increase specificity here to beat an Icon style
+	& > circle {
+		vector-effect: none;
+	}
+
+	circle {
+		fill: none;
+		stroke-width: 12;
+		stroke-linecap: round;
+	}
+
+	&-spinner {
+		transform-origin: center;
+		animation: ~"@{prefix}-LoadingIcon-dash-animation" linear infinite;
+		stroke: @color-primary;
+		stroke-dasharray: 150px 100px;
+	}
+
+	&-spinner-is-disabled {
+		stroke: @color-disabledText;
+	}
+
+	&-circle {
+		stroke: @color-gray;
+	}
+}
+
+@keyframes ~"@{prefix}-LoadingIcon-rotate-animation" {
+	to {
+		transform: rotateZ(360deg);
+	}
+}
+
+@keyframes ~"@{prefix}-LoadingIcon-dash-animation" {
+	0% {
+		stroke-dashoffset: 0;
+		stroke-dasharray: 151.327px 100px;
+	}
+
+	50% {
+		stroke-dashoffset: -251.327px;
+		stroke-dasharray: 10px 241.327px;
+	}
+
+	100% {
+		stroke-dashoffset: -502.654px;
+		stroke-dasharray: 151.327px 100px;
+	}
+}
+

@@ -1,0 +1,162 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Tabs-spacer-height: @size-XXS;
+@Tabs-border-width: 1px;
+
+.@{prefix}-Tabs {
+	&-bar {
+		font-size: @size-font;
+		font-weight: @font-weight-medium;
+		list-style-type: none;
+		display: flex;
+		margin: 0;
+		padding: 0;
+	}
+
+	&-variable-width {
+
+		display: inline-flex;
+
+		.@{prefix}-Tabs-Tab {
+			flex: none;
+		}
+	}
+
+	&-floating {
+		border-bottom: 1px solid @color-neutral-4;
+	}
+
+	&-Tab {
+		flex: 1 1 0;
+		height: inherit;
+		display: flex;
+		justify-content: center;
+		align-items: stretch;
+		box-sizing: content-box;
+		cursor: pointer;
+		color: @color-neutral-9;
+		user-select: none;
+		margin-bottom: 3px;
+
+		&:hover {
+			border-bottom: 3px solid @color-primary;
+			margin-bottom: 0px;
+		}
+
+		&-is-active {
+			font-weight: @font-weight-semiBold;
+		}
+
+		.@{prefix}-Badge {
+			cursor: pointer;
+		}
+	}
+
+	&-Tab-is-disabled {
+		color: @color-neutral-6;
+		cursor: not-allowed;
+
+		&:hover {
+			border-bottom: 0;
+		}
+
+		&:active {
+			background: @color-white;
+		}
+
+		.@{prefix}-Badge {
+			color: @color-neutral-6;
+			border-color: @color-neutral-5;
+			cursor: not-allowed;
+		}
+	}
+
+	&-Tab-is-progressive {
+		position: relative;
+		border-width: @Tabs-border-width 0;
+
+		&:first-of-type {
+			border-left-width: @Tabs-border-width;
+		}
+
+		& + * {
+			border-left-width: 0;
+		}
+
+		.@{prefix}-Tabs-Tab-arrow {
+			z-index: 1;
+
+			.@{prefix}-Tabs-Tab-arrow-svg {
+				z-index: 1;
+			}
+
+			.@{prefix}-Tabs-Tab-arrow-line {
+				stroke: @color-gray;
+			}
+		}
+
+		&:not(:first-child) {
+			.@{prefix}-Tabs-Tab-content {
+				padding-left: 15px;
+			}
+		}
+	}
+
+	&-Tab-is-active {
+		border-top: none;
+		border-bottom: 3px solid @color-primary;
+		color: @color-neutral-9;
+		cursor: initial;
+		margin-bottom: 0px;
+	}
+
+	&-Tab-content {
+		flex: 1;
+		padding: 9px 15px;
+		text-align: center;
+		height: 15px;
+		display: inline-block;
+		line-height: 16px;
+	}
+
+	&-Tab-arrow {
+		svg {
+			height: 100%;
+			width: 8px;
+			display: block;
+			position: absolute;
+		}
+	}
+
+	&-bar-is-multiline {
+		.@{prefix}-Tabs-Tab {
+			background-color: @color-lightGray;
+			color: @color-neutral-9;
+
+			&:hover, &-is-active {
+				background-color: @color-white;
+			}
+		}
+
+		.@{prefix}-Tabs-Tab + .@{prefix}-Tabs-Tab-is-disabled {
+			background-color: @color-lightGray;
+
+			&:hover {
+				background-color: @color-lightGray;
+			}
+
+			&:active {
+				background-color: @color-lightGray;
+			}
+		}
+	}
+}
+
+.Tabs-mixin-tab-line(@color-Tab-line: @color-primary) {
+	.@{prefix}-Tabs-Tab-arrow {
+		.@{prefix}-Tabs-Tab-arrow-tab-line {
+			fill: @color-Tab-line;
+		}
+	}
+}

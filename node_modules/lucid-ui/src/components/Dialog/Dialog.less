@@ -1,0 +1,100 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Dialog-size-spacing: 25px;
+@Dialog-size-borderRadius: @size-borderRadius + 2;
+@Dialog-size-maxHeight: 80vh;
+@Dialog-size-smallWidth: 30%;
+@Dialog-size-mediumWidth: 60%;
+@Dialog-size-largeWidth: 90%;
+@Dialog-size-padding: 20px;
+
+.@{prefix}-Dialog {
+	&-window {
+		display: flex;
+		flex-direction: column;
+		background: @color-white;
+		box-shadow: 0 1px 5px 0 rgba(33, 31, 31, 0.3);
+		max-height: @Dialog-size-maxHeight;
+		overflow: hidden;
+		z-index: @zindex-modal;
+	}
+
+	&-window-is-small {
+		width: @Dialog-size-smallWidth;
+	}
+
+	&-window-is-medium {
+		width: @Dialog-size-mediumWidth;
+	}
+
+	&-window-is-large {
+		width: @Dialog-size-largeWidth;
+	}
+
+	&-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: @size-font-L;
+		color: @color-darkGray;
+		font-weight: @font-weight-medium;
+		padding: @Dialog-size-padding;
+
+		.@{prefix}-Dialog-close-button {
+			position: relative;
+			left: 0;
+			top: 0;
+			padding: 0;
+			width: @size-close-button;
+
+			.@{prefix}-Icon {
+				stroke: @color-neutral-6;
+			}
+		}
+	}
+
+	& &-is-complex &-header {
+		display: flex;
+		box-sizing: content-box;
+		padding: @Dialog-size-padding;
+		border-bottom: 1px solid @color-neutral-4;
+		font-size: @size-font-L;
+		min-height: 28px;
+	}
+
+	&-body {
+		flex: 1 1 auto;
+		overflow: auto;
+		padding: 0 @Dialog-size-padding;
+		max-height: 60vh; // fix for IE 11 bug, otherwise the body doesn't shrink properly
+		font-size: @fontSize;
+		line-height: 14px;
+	}
+
+	& &-is-complex &-body {
+		padding: @Dialog-size-padding;
+	}
+
+	& &-no-footer &-body {
+		padding-bottom: @Dialog-size-padding;
+	}
+
+	&-body-no-gutters {
+		padding: 0;
+	}
+
+	&-footer {
+		flex: 1 0 auto;
+		text-align: right;
+		background-color: @color-white;
+		padding: @Dialog-size-padding;
+	}
+
+	& &-is-complex &-footer {
+		border-top: 1px solid @color-neutral-4;
+		padding: @Dialog-size-padding;
+		height: 30px;
+		box-sizing: content-box;
+	}
+}

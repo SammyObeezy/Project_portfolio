@@ -1,0 +1,383 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Table-cell-padding-extended: 8px 9.4px;
+@Table-cell-padding-compressed: 2.5px 9.4px;
+
+.@{prefix}-Table {
+	font-family: @font-family-tabular;
+	font-feature-settings: @font-feature-settings-tabular;
+	font-size: @fontSize;
+	font-weight: @font-weight-regular;
+	color: @color-textColor;
+	background-color: @color-white;
+	border-collapse: collapse;
+	border-spacing: 0;
+	box-sizing: border-box;
+
+	/*
+		This removes the hover styles based upon hasHover equalling false
+	*/
+	&-no-hover.@{prefix}-Table {
+		.@{prefix}-Table-Tbody {
+			.@{prefix}-Table-Tr:hover {
+				cursor: default;
+
+				& > .@{prefix}-Table-Td.@{prefix}-Table-is-first-single::after {
+					display: none;
+				}
+				& > .@{prefix}-Table-Td[rowspan] {
+					background-color: white;
+				}
+			}
+			.@{prefix}-Table-Tr.@{prefix}-Table-is-selected:hover {
+				cursor: default;
+				& > .@{prefix}-Table-Td[rowspan] {
+					background-color: @color-primary-light-hover;
+				}
+			}
+		}
+	}
+
+	/*
+		These two selectors hide the sorting caret icon
+		if the column is not sorted, and they show the icon
+		if the column is being sorted.
+	*/
+	& .@{prefix}-Table-is-sorted.@{prefix}-Table-Th {
+		& > .@{prefix}-Table-Th-inner {
+			& > :not(:first-of-type) {
+				visibility: visible;
+			}
+		}
+	}
+	& .@{prefix}-Table-Th-inner {
+		& > :not(:first-of-type) {
+			visibility: hidden;
+		}
+	}
+	& .@{prefix}-Table-Th-inner {
+		& .@{prefix}-Table-Th-inner-resize {
+			visibility: visible;
+		}
+	}
+
+	// `Table`.`hasBorder` prop
+	&-has-border {
+		border: @border-table-header;
+	}
+
+	// `Table`.`density` prop
+	&-density-extended {
+		& > .@{prefix}-Table-Tbody > .@{prefix}-Table-Tr > .@{prefix}-Table-Td {
+			padding: @Table-cell-padding-extended;
+		}
+	}
+
+	&-density-compressed {
+		& > .@{prefix}-Table-Tbody > .@{prefix}-Table-Tr > .@{prefix}-Table-Td {
+			padding: @Table-cell-padding-compressed;
+		}
+	}
+
+	// padding was causing content in `Th` to not line up with `Td`
+	.@{prefix}-Table-Th {
+		font-weight: @font-weight-regular;
+		padding: 0;
+
+		&.@{prefix}-Table-is-sorted {
+			font-weight: @font-weight-semiBold;
+		}
+	}
+
+	// `Table`.`hasWordWrap` prop
+	.@{prefix}-Table-Td,
+	.@{prefix}-Table-Th {
+		white-space: nowrap;
+	}
+
+	&-has-word-wrap {
+		.@{prefix}-Table-Td,
+		.@{prefix}-Table-Th {
+			white-space: initial;
+		}
+	}
+
+	// Table header styles
+	&.@{prefix}-Table-has-light-header > &-Thead {
+		background-color: @color-table-header-light-background;
+		border-color: @color-table-row-border;
+		& > .@{prefix}-Table-Tr > .@{prefix}-Table-Th {
+			&.@{prefix}-Table-is-sortable {
+				&:hover {
+					background-color: @color-table-header-light-sort-hover;
+				}
+			}
+		}
+	}
+
+	& > &-Thead {
+		background-color: @color-table-header-dark-background;
+		color: @color-table-header-light-color;
+
+		&:hover {
+			& > .@{prefix}-Table-Tr > .@{prefix}-Table-Th {
+				border-color: @color-table-header-border;
+			}
+		}
+
+		// Table header cell styles
+		& > .@{prefix}-Table-Tr > .@{prefix}-Table-Th {
+			border: 1px solid transparent;
+			border-bottom: 1px solid @color-table-header-border;
+			height: @size-height-standard; // effectively min height
+
+			// remove all borders from the perimeter of the header
+			&.@{prefix}-Table-is-first-row {
+				border-top: 0 none @color-transparent;
+			}
+
+			&.@{prefix}-Table-is-last-row {
+				border-bottom: 0 none @color-transparent;
+			}
+
+			&.@{prefix}-Table-is-first-col {
+				border-left: 0 none @color-transparent;
+			}
+
+			&.@{prefix}-Table-is-last-col {
+				border-right: 0 none @color-transparent;
+			}
+			// `Th`.`isSortable` prop
+			&.@{prefix}-Table-is-sortable {
+				cursor: pointer;
+
+				&:hover {
+					background-color: @color-table-header-dark-background-hover;
+				}
+			}
+
+			&.@{prefix}-Table-is-sorted
+				> .@{prefix}-Table-Th-inner
+				> .@{prefix}-Table-Th-inner-caret
+				> .@{prefix}-Table-sort-icon {
+				opacity: 1;
+			}
+
+			&.@{prefix}-Table-is-resizing
+				> .@{prefix}-Table-Th-inner
+				> .@{prefix}-Table-Th-inner-resize {
+				opacity: 1;
+			}
+
+			// header cell content
+			& > .@{prefix}-Table-Th-inner {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				justify-content: flex-end;
+
+				.@{prefix}-Table-Th-inner-content {
+					flex: 1 0 auto;
+					display: flex;
+					align-items: center;
+					margin: 2.5px 9.4px;
+				}
+
+				// `Th`.`isSorted` prop
+				.@{prefix}-Table-Th-inner-caret {
+					margin-right: 9px;
+					display: flex;
+					align-items: center;
+
+					.@{prefix}-Table-sort-icon {
+						stroke: @color-textColor;
+						opacity: @opacity-disabled;
+					}
+				}
+				// `Th`.`isResizable` prop
+				.@{prefix}-Table-Th-inner-resize {
+					cursor: ew-resize;
+					width: 3px;
+					background-color: @color-neutral-5;
+					opacity: 0;
+					transition: opacity @timing-animation-hover;
+
+					&:hover {
+						opacity: 1;
+					}
+				}
+			}
+
+			// header cell content displays ellipses if text overflows
+			// and <DataTable hasFixedHeader={true} truncateContent={true}>
+			&.@{prefix}-Table-truncate-content {
+				& > .@{prefix}-Table-Th-inner {
+					justify-content: flex-start;
+					align-items: center;
+					.@{prefix}-Table-Th-inner-content {
+						flex: unset;
+						display: unset;
+						text-overflow: ellipsis;
+						overflow: hidden;
+						white-space: nowrap;
+						text-align: left;
+					}
+				}
+			}
+
+			// `Th`.`align` prop - use flex alignments in header
+			&.@{prefix}-Table-align-left
+				> .@{prefix}-Table-Th-inner
+				.@{prefix}-Table-Th-inner-content {
+				justify-content: flex-start;
+			}
+
+			&.@{prefix}-Table-align-center
+				> .@{prefix}-Table-Th-inner
+				.@{prefix}-Table-Th-inner-content {
+				justify-content: center;
+			}
+
+			&.@{prefix}-Table-align-right
+				> .@{prefix}-Table-Th-inner
+				.@{prefix}-Table-Th-inner-content {
+				justify-content: flex-end;
+			}
+		}
+	}
+
+	// Table body cell styles
+	& > &-Tbody {
+		& > .@{prefix}-Table-Tr {
+			// `Td`.`align` prop - use text alignments in body
+			// Table body cell styles
+			& > .@{prefix}-Table-Td {
+				background-clip: padding-box; // fixes Firefox background paints over collapsed border
+				border-bottom: @border-table-row;
+
+				&.@{prefix}-Table-truncate-content {
+					text-overflow: ellipsis;
+					overflow: hidden;
+					white-space: nowrap;
+				}
+
+				// remove all borders from the perimeter of the body
+				&.@{prefix}-Table-is-first-row {
+					border-top: 1px solid @color-table-header-border;
+				}
+
+				&.@{prefix}-Table-is-last-row {
+					border-bottom: 0 none @color-transparent;
+				}
+
+				&.@{prefix}-Table-is-first-col {
+					border-left: 0 none @color-transparent;
+				}
+
+				&.@{prefix}-Table-is-last-col {
+					border-right: 0 none @color-transparent;
+				}
+
+				&.@{prefix}-Table-align-left {
+					text-align: left;
+				}
+
+				&.@{prefix}-Table-align-center {
+					text-align: center;
+				}
+
+				&.@{prefix}-Table-align-right {
+					text-align: right;
+				}
+			}
+
+			// style row cells on hover
+			&:hover {
+				.selectCellsOnRow(
+					{background-color: @color-table-row-hover-background;}
+				);
+			}
+
+			// `Tr`.`isSelected` prop
+			// style row cells
+			&.@{prefix}-Table-is-selected {
+				.selectCellsOnRow(
+					{background-color: @color-table-row-selected-background;}
+				);
+				&:hover {
+					.selectCellsOnRow(
+						{background-color: @color-table-row-selected-hover-background;}
+					);
+				}
+			}
+
+			// `Tr`.`isActive` prop
+			// style row cells
+			&.@{prefix}-Table-is-active {
+				.selectCellsOnRow(
+					{background-color: @color-table-row-active-background;}
+				);
+				// always show marker on first cell
+				.selectFirstCellOnRow({.left-marker(1) ;});
+
+				// style row cells on hover
+				&:hover {
+					.selectCellsOnRow(
+						{background-color: @color-table-row-active-hover-background;}
+					);
+				}
+			}
+
+			// place hidden marker on first cell
+			.selectFirstCellOnRow({.left-marker(0) ;});
+
+			// show marker on hover
+			&:hover {
+				.selectFirstCellOnRow({.left-marker(1) ;});
+			}
+		}
+	}
+
+	// link styles in the Table body
+	a {
+		color: @color-linkColor;
+	}
+}
+
+// `Tr`.`isDisabled` prop
+.@{prefix}-Table-is-disabled {
+	color: @color-disabledText;
+	font-style: italic;
+
+	a {
+		color: @color-linkColor;
+		&:hover {
+			color: @color-linkColorHover;
+		}
+	}
+}
+
+// MIXINS
+
+// Select all 1-height cells on the current body row and apply the given styles
+.selectCellsOnRow(@ruleset) {
+	& > .@{prefix}-Table-Td {
+		&:not([rowspan]),
+		&[rowspan='1'] {
+			@ruleset();
+		}
+	}
+}
+
+// Select the first 1-height cell on the current body row and apply the given styles
+.selectFirstCellOnRow(@ruleset) {
+	& > .@{prefix}-Table-Td {
+		&.@{prefix}-Table-is-first-single {
+			@ruleset();
+			> .@{prefix}-Checkbox {
+				vertical-align: middle;
+			}
+		}
+	}
+}

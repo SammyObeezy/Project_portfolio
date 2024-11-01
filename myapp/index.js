@@ -2,22 +2,15 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
 const cors = require("cors");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
-//middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-//mongodb configuration
-
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+// MongoDB configuration
 const uri =
   "mongodb+srv://project-book-store:4RqMpYWskXoQD6ve@cluster0.pbxpkpz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -26,130 +19,231 @@ const client = new MongoClient(uri, {
   },
 });
 
+// Initial route
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+// Main function to manage database operations
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
 
-     // Book and Blog collections
-     const blogCollections = client.db("BookInventory").collection("blogs");
-    //create a collection of documents
-    const bookCollections = client.db("BookInventory").collection("books");
+    // Database and collections
+    const db = client.db("BookInventory");
+    const blogCollections = db.collection("blogs");
+    const bookCollections = db.collection("books");
+    const rentalCollections = db.collection("rentals");
 
-    //insert a book to the database using post method
-
+    // Book Routes
     app.post("/upload-book", async (req, res) => {
-      const data = req.body;
-      const result = await bookCollections.insertOne(data);
-      res.send(result);
-    });
-
-    // get all books from the database
-    app.get("/all-books", async (req, res) => {
-      const books = bookCollections.find();
-      const result = await books.toArray();
-      res.send(result);
-    });
-
-    // update a book dta : patch or update method
-    app.patch("/book/:id", async (req, res) => {
-      const id = req.params.id;
-      //console.log(id);
-      const updateBookData = req.body;
-      const filter = { _id: new ObjectId(id) };
-      const updateDoc = {
-        $set: {
-          ...updateBookData,
-        },
-      };
-      const options = { upsert: true };
-      //update
-      const result = await bookCollections.updateOne(
-        filter,
-        updateDoc,
-        options
-      );
-      res.send(result);
-    });
-    // delete a book data
-    app.delete("/book/:id", async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const result = await bookCollections.deleteOne(filter);
-      res.send(result);
-    });
-
-    //find category
-    app.get("/all-books", async (req, res) => {
-      let query = {};
-      if (req.query?.category) {
-        query = { category: req.query.category };
+      try {
+        const data = req.body;
+        const result = await bookCollections.insertOne(data);
+        res.status(201).send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to upload book", error });
       }
-      const result = await bookCollections.find(query).toArray();
-      res.send(result);
     });
-    //to get single book data
+
+    app.get("/all-books", async (req, res) => {
+      try {
+        const books = await bookCollections.find().toArray();
+        res.send(books);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to retrieve books", error });
+      }
+    });
+
     app.get("/book/:id", async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const result = await bookCollections.findOne(filter);
-      res.send(result);
+      try {
+        const id = req.params.id;
+        const book = await bookCollections.findOne({ _id: new ObjectId(id) });
+        if (!book) return res.status(404).send({ message: "Book not found" });
+        res.send(book);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to retrieve book", error });
+      }
     });
 
-    // Blogs section
+    app.patch("/book/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateBookData = req.body;
+        const result = await bookCollections.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updateBookData },
+          { upsert: true }
+        );
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to update book", error });
+      }
+    });
+
+    app.delete("/book/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const result = await bookCollections.deleteOne({
+          _id: new ObjectId(id),
+        });
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to delete book", error });
+      }
+    });
+
+    // Blog Routes
     app.post("/blogs", async (req, res) => {
-      const blogPost = req.body;
-      const result = await blogCollections.insertOne(blogPost);
-      res.send(result)
-    })
-    // Get all blog posts
+      try {
+        const blogPost = req.body;
+        const result = await blogCollections.insertOne(blogPost);
+        res.status(201).send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to upload blog", error });
+      }
+    });
+
     app.get("/blogs", async (req, res) => {
-      const blogs = blogCollections.find();
-      const result = await blogs.toArray();
-      res.send(result)
-    })
-   // Get a single blog post by ID
-   app.get("/blog/:id", async (req, res) => {
-    const id = req.params.id;
-    const filter = { _id: new ObjectId(id) };
-    const result = await blogCollections.findOne(filter); // Find blog post by ID
-    res.send(result); // Send found blog post back to client
-  });
+      try {
+        const blogs = await blogCollections.find().toArray();
+        res.send(blogs);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to retrieve blogs", error });
+      }
+    });
 
-  // Update a blog post by ID using PATCH
-  app.patch("/blog/:id", async (req, res) => {
-    const id = req.params.id;
-    const updateBlogData = req.body; // Data sent from the client to update the blog
-    const filter = { _id: new ObjectId(id) };
-    const updateDoc = {
-      $set: {
-        ...updateBlogData,
-      },
-    };
-    const options = { upsert: true }; // Create new if not exists
-    const result = await blogCollections.updateOne(filter, updateDoc, options);
-    res.send(result); // Send response back to client
-  });
+    app.get("/blog/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const blog = await blogCollections.findOne({ _id: new ObjectId(id) });
+        if (!blog) return res.status(404).send({ message: "Blog not found" });
+        res.send(blog);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to retrieve blog", error });
+      }
+    });
 
-  // Delete a blog post by ID
-  app.delete("/blog/:id", async (req, res) => {
-    const id = req.params.id;
-    const filter = { _id: new ObjectId(id) };
-    const result = await blogCollections.deleteOne(filter); // Delete blog post by ID
-    res.send(result); // Send deletion status back to client
-  }); 
-    // Send a ping to confirm a successful connection
+    app.patch("/blog/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const updateBlogData = req.body;
+        const result = await blogCollections.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: updateBlogData },
+          { upsert: true }
+        );
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to update blog", error });
+      }
+    });
+
+    app.delete("/blog/:id", async (req, res) => {
+      try {
+        const id = req.params.id;
+        const result = await blogCollections.deleteOne({
+          _id: new ObjectId(id),
+        });
+        res.send(result);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to delete blog", error });
+      }
+    });
+
+    // Rental Routes
+    app.post("/upload-rental", async (req, res) => {
+      try {
+        const rentalData = req.body;
+        const result = await rentalCollections.insertOne(rentalData);
+        console.log("Rental successfully uploaded:", result); // Log success
+        res.status(201).send(result); // Send success response
+      } catch (error) {
+        console.error("Error during rental upload:", error); // Log error details
+        res.status(500).send({ message: "Failed to upload rental", error });
+      }
+    });
+
+    app.get("/available-rentals", async (req, res) => {
+      try {
+        const query = req.query.location
+          ? { location: req.query.location }
+          : {};
+        const availableRentals = await rentalCollections.find(query).toArray();
+        res.send(availableRentals);
+      } catch (error) {
+        res.status(500).send({ message: "Failed to retrieve rentals", error });
+      }
+    });
+
+    app.post("/rent-book/:id", async (req, res) => {
+      try {
+        const rentalId = req.params.id;
+        const renterData = req.body;
+
+        const rental = await rentalCollections.findOne({
+          _id: new ObjectId(rentalId),
+        });
+        if (!rental)
+          return res.status(404).send({ message: "Rental book not found" });
+        if (rental.status === "rented")
+          return res.status(400).send({ message: "Book is currently rented" });
+
+        const rentalCost = rental.price * renterData.duration;
+        await rentalCollections.updateOne(
+          { _id: new ObjectId(rentalId) },
+          {
+            $set: {
+              status: "rented",
+              rentedBy: renterData.userId,
+              rentalEndDate: new Date(
+                Date.now() + renterData.duration * 86400000
+              ),
+            },
+          }
+        );
+
+        res.send({ message: "Book rented successfully", rentalCost });
+      } catch (error) {
+        res.status(500).send({ message: "Failed to rent book", error });
+      }
+    });
+
+    app.post("/return-book/:id", async (req, res) => {
+      try {
+        const rentalId = req.params.id;
+
+        const rental = await rentalCollections.findOne({
+          _id: new ObjectId(rentalId),
+        });
+        if (!rental || rental.status !== "rented") {
+          return res
+            .status(400)
+            .send({ message: "Book is not currently rented" });
+        }
+
+        await rentalCollections.updateOne(
+          { _id: new ObjectId(rentalId) },
+          { $set: { status: "available", rentedBy: null, rentalEndDate: null } }
+        );
+
+        res.send({ message: "Book returned successfully" });
+      } catch (error) {
+        res.status(500).send({ message: "Failed to return book", error });
+      }
+    });
+
+    // MongoDB Ping
     await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    console.log("Pinged MongoDB deployment successfully!");
   } finally {
-    // Ensures that the client will close when you finish/error
-    //await client.close();
+    // Keep the client open for continuous server operations
   }
 }
+
 run().catch(console.dir);
 
+// Start server
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });

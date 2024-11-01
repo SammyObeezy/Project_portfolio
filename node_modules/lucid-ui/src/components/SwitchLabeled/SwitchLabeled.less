@@ -1,0 +1,85 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-SwitchLabeled {
+	align-items: center;
+	color: @color-darkGray;
+	cursor: pointer;
+	display: flex;
+	font-size: @fontSize;
+	justify-content: flex-start;
+	width: fit-content;
+
+	> .@{prefix}-Switch {
+		flex: 0 0 @Switch-width;
+		margin-right: @size-XXS;
+	}
+
+	&&-is-disabled {
+		color: @color-mediumGray;
+		cursor: not-allowed;
+	}
+
+	&:hover {
+		.@{prefix}-Switch-visualization-container {
+			border: 1px solid @color-primary;
+		}
+
+		.@{prefix}-Switch-visualization-handle {
+			border: 1px solid @color-primary;
+		}
+	}
+
+	&-is-disabled:hover {
+		.@{prefix}-Switch-visualization-container,
+		.@{prefix}-Switch-visualization-handle {
+			background-color: @Switch-disabled-color;
+			border-color: @Switch-disabled-border-color;
+		}
+	}
+
+	&-is-disabled:hover {
+		& .@{prefix}-Switch-visualization-container {
+			background-color: @Switch-disabled-color;
+			border-color: @Switch-disabled-border-color;
+		}
+
+		& .@{prefix}-Switch-visualization-handle {
+			background-color: transparent;
+			border-color: @Switch-disabled-border-color;
+		}
+
+		.@{prefix}-Switch-is-selected:hover {
+			.@{prefix}-Switch-visualization-container {
+				background-color: @color-white;
+				border-color: @color-primary;
+				// opacity: .50;
+			}
+			.@{prefix}-Switch-visualization-handle {
+				background-color: @color-primary;
+				// opacity: .50;
+				border-color: transparent;
+			}
+		}
+	}
+
+	&-text {
+		.transition-group-animation-fade(@timing-animation-hover);
+
+		position: relative;
+
+		// Since we have two elements in the dom during the transition from one
+		// label to another, we want the element that's leaving to appear "over
+		// the top" of the label that coming in.
+		&-leave {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+
+		> * {
+			white-space: nowrap;
+			line-height: @Switch-height;
+		}
+	}
+}

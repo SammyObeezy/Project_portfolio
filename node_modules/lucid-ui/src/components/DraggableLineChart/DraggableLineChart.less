@@ -1,0 +1,86 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-DraggableLineChart {
+	&-invisible {
+		fill-opacity: 0;
+	}
+
+	&-empty-info {
+		border: @border-standardBorder;
+		padding: @size-L;
+		font-weight: @font-weight-medium;
+		background-color: @color-white;
+	}
+
+	&-tooltip-line {
+		shape-rendering: crispEdges;
+		stroke-width: 2;
+		stroke: @color-gray;
+	}
+
+	&-legend-container {
+		text-align: center;
+	}
+
+	&-overlayTrack {
+		stroke: @color-primary;
+		fill: @color-primary;
+		fill-opacity: 0%;
+		stroke-opacity: 0%;
+
+		&.active {
+			fill-opacity: 15%;
+			stroke-opacity: 100%;
+		}
+	}
+}
+
+.@{prefix}-DraggableLineChart-Axis {
+	text {
+		font: @font-chart;
+		fill: @color-textColor;
+	}
+
+	path,
+	line {
+		fill: none;
+		stroke: @color-gray;
+		shape-rendering: crispEdges;
+	}
+
+	.xLines {
+		foreignObject {
+			transform: translate(0px, -15px);
+		}
+	}
+
+	&.NoVert {
+		.xLines {
+			text {
+				transform: translate(0px, -5px);
+			}
+		}
+	}
+
+	&.Vert {
+		.xLines {
+			text {
+				transform: translate(7px, -20px) rotate(-90deg);
+			}
+		}
+	}
+
+	&.Center {
+		.xLines {
+			text {
+				transform: translate(25px, -5px);
+			}
+		}
+	}
+}
+.@{prefix}-DraggableLineChart-Line {
+	stroke-width: 2;
+	stroke: @color-neutral-9;
+	fill: none;
+}

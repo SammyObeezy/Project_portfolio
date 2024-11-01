@@ -1,0 +1,152 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@SearchableSelect-size-controlHeight: @size-height-standard;
+
+.@{prefix}-SearchableSelect {
+	&-Control {
+		.no-safari-flicker();
+		.box-sizing();
+
+		background-color: @featured-color-default-backgroundColor;
+		cursor: pointer;
+		height: @SearchableSelect-size-controlHeight;
+		display: flex;
+		outline: none;
+		border: 1px solid @color-neutral-5;
+		border-radius: @size-borderRadius;
+		font-size: @fontSize;
+		font-weight: @font-weight-medium;
+		color: @color-black;
+		line-height: @size-height-standard;
+		padding: 0 @size-standard;
+		align-items: center;
+		white-space: nowrap;
+
+		&-is-invisible {
+			border: none;
+			background-color: transparent;
+
+			&:active {
+				background-color: @color-neutral-5;
+			}
+			&:hover {
+				background-color: @color-neutral-3;
+			}
+
+			&.@{prefix}-SearchableSelect-Control-is-selected {
+				border: 1px solid @featured-color-primary-borderColor;
+				background-color: @color-primary-light;
+
+				&:hover {
+					background-color: @color-primary-light-hover;
+				}
+			}
+		}
+
+		&-is-error {
+			border: 2px solid @featured-color-danger;
+		}
+
+		&::before {
+			border-radius: @size-borderRadius;
+		}
+
+		&-content {
+			display: flex;
+			align-items: center;
+			margin-right: @size-standard;
+		}
+
+		// States
+		&-is-selected {
+			border-color: @color-primary;
+			background-color: @color-primary-light;
+
+			&:hover {
+				background-color: @color-primary-light-hover;
+			}
+		}
+
+		&-is-expanded {
+			z-index: @zindex-tooltip;
+			color: @color-neutral-7;
+			border-bottom: none;
+		}
+
+		&-is-disabled {
+			.opacity(@opacity-disabled);
+
+			cursor: not-allowed;
+		}
+	}
+
+	&.@{prefix}-DropMenu-is-expanded {
+		&.@{prefix}-DropMenu-direction-up {
+			.@{prefix}-SearchableSelect-Control {
+				border-radius: 0 0 @size-borderRadius @size-borderRadius;
+			}
+		}
+
+		&.@{prefix}-DropMenu-direction-down {
+			.@{prefix}-SearchableSelect-Control {
+				border-radius: @size-borderRadius @size-borderRadius 0 0;
+			}
+		}
+	}
+
+	&-Search-container {
+		background-color: @color-lightGray;
+
+		.@{prefix}-SearchField {
+			padding: 8px;
+			background-color: white;
+
+			::placeholder {
+				color: @color-neutral-9;
+			}
+
+			.@{prefix}-SearchField-Icon-container {
+				right: 8px;
+			}
+		}
+	}
+
+	&-Loading {
+		justify-content: center;
+
+		&.@{prefix}-DropMenu-Option.@{prefix}-DropMenu-Option-is-focused {
+			background: none;
+		}
+	}
+
+	.@{prefix}-LoadingIndicator-message-container {
+		align-items: flex-start;
+
+		.@{prefix}-LoadingMessage {
+			border: none;
+			padding: @size-XS;
+		}
+	}
+
+	&-Option-underline-match,
+	&-Option-underline-post,
+	&-Option-underline-pre {
+		white-space: pre;
+	}
+
+	&-Option-underline-match {
+		text-decoration: underline;
+	}
+
+	&-noresults {
+		color: @color-disabledText;
+		font-style: italic;
+	}
+
+	&-error-content {
+		margin-top: @size-XXS;
+		color: @featured-color-danger;
+		font-size: @fontSize * 0.9;
+	}
+}

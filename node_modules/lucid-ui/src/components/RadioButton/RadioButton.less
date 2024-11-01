@@ -1,0 +1,111 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@RadioButton-size: 22px;
+@RadioButton-animation-timing: 0.1s linear;
+
+@RadioButton-container-offset: @size-XXS;
+@RadioButton-container-radius: 8px;
+
+@RadioButton-dot-offset: 6px;
+@RadioButton-dot-radius: 5px;
+
+@RadioButton-glow-offset: @size-XXS;
+@RadioButton-glow-radius: 8px;
+
+.@{prefix}-RadioButton {
+	cursor: pointer;
+	display: inline-block;
+	height: @RadioButton-size;
+	position: relative;
+	user-select: none;
+	width: @RadioButton-size;
+	align-self: flex-start;
+
+	&-is-disabled {
+		cursor: not-allowed;
+	}
+
+	&-native {
+		.opacity(0);
+	}
+
+	&-visualization-container {
+		.box-sizing();
+
+		background-color: white;
+		border-radius: @RadioButton-container-radius + 1;
+		border: solid @size-borderWidth @color-borderGray;
+		height: @RadioButton-container-radius * 2;
+		left: @RadioButton-container-offset;
+		position: absolute;
+		top: @RadioButton-container-offset;
+		width: @RadioButton-container-radius * 2;
+	}
+
+	&-visualization-dot {
+		.box-sizing();
+		.opacity(0);
+
+		background-color: @color-primary;
+		border-radius: @RadioButton-dot-radius;
+		height: @RadioButton-dot-radius * 2;
+		left: @RadioButton-dot-offset;
+		position: absolute;
+		top: @RadioButton-dot-offset;
+		width: @RadioButton-dot-radius * 2;
+	}
+
+	&-visualization-glow {
+		.box-sizing();
+		.opacity(0);
+
+		background-color: @color-primary;
+		border-radius: @RadioButton-glow-radius;
+		height: @RadioButton-glow-radius * 2 - 2;
+		left: @RadioButton-glow-offset + 1;
+		position: absolute;
+		top: @RadioButton-glow-offset + 1;
+		width: @RadioButton-glow-radius * 2 - 2;
+	}
+
+	&:hover &-visualization-container {
+		border: @size-borderWidthFocused solid @color-primary;
+	}
+
+	&-is-disabled &-visualization-container,
+	&-is-disabled:hover &-visualization-container {
+		background-color: @color-lightGray;
+		border-color: @color-gray;
+	}
+
+	&-is-disabled&-is-selected &-visualization-container,
+	&-is-disabled&-is-selected &-visualization-dot {
+		.opacity(0.5);
+	}
+
+	&-is-disabled&-is-selected:hover &-visualization-container {
+		border-color: @color-primary;
+	}
+
+	&:active:not(&-is-disabled) &-visualization-container {
+		background-color: @color-primary;
+		border-color: @color-primary;
+	}
+
+	&-is-selected &-visualization-container {
+		border: @size-borderWidthFocused solid @color-primary;
+	}
+
+	&-is-selected:not(&-is-disabled) {
+		border-color: @color-primary;
+
+		&:hover {
+			.opacity(0.8);
+		}
+	}
+
+	&-is-selected &-visualization-dot {
+		.opacity(1);
+	}
+}

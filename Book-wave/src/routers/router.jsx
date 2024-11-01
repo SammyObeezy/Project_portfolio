@@ -3,6 +3,8 @@ import React, { Suspense } from "react";
 import App from "../App";
 import DashboardLayout from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import RentalListings from "../components/Rent";
+import RentalForm from "../components/RentForm";
 
 
 // Lazy-loaded components
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <Shop />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/rent",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RentalListings />
           </Suspense>
         ),
       },
@@ -93,6 +103,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <PrivacyPolicy />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/RentForm",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RentalForm />
           </Suspense>
         ),
       },

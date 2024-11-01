@@ -1,0 +1,260 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Tooltip-pointer-inner-width: 8px;
+@Tooltip-pointer-outer-width: 9px;
+@Tooltip-pointer-offset: 13px;
+
+.@{prefix}-ToolTip-FlyOut {
+	background-color: @color-neutral-9;
+	border: @border-standardBorder;
+	border-color: @color-neutral-9;
+	border-radius: @size-borderRadius;
+	padding: @size-standard;
+	font-size: @fontSize * 0.9;
+	font-weight: @font-weight-regular;
+	line-height: 16px;
+	color: @color-neutral-1;
+	box-shadow: 0 1px 3px 0 rgba(33, 31, 31, 0.15);
+
+	a {
+		color: @color-neutral-1;
+		text-decoration: underline;
+		cursor: pointer;
+	}
+
+	// Prevents the button from disappearing on hover on a dark background
+	button:hover:not(.@{prefix}-Button-is-disabled) {
+		mix-blend-mode: normal;
+	}
+
+	&-light {
+		background-color: @color-white;
+		border: @border-standardBorder;
+		color: @color-darkGray;
+
+		a {
+			color: @color-darkGray;
+		}
+	}
+
+	&-Title {
+		font-size: @size-font-L;
+		font-weight: @font-weight-medium;
+		margin: 0 0 4px;
+	}
+
+	// Double selector for small specificity increase
+	&-close&-close {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		cursor: pointer;
+		stroke: @color-white;
+
+		&:hover {
+			stroke: @color-white;
+			opacity: 0.5;
+		}
+	}
+
+	// Double selector for small specificity increase
+	&-light &-close&-close {
+		stroke: @color-neutral-6;
+
+		&:hover {
+			opacity: 1;
+			stroke: @color-neutral-7;
+		}
+	}
+
+	// default before/after styles
+	&-default&-up::after {
+		border-top-color: @color-darkGray;
+	}
+
+	&-default&-up::before {
+		border-top-color: @color-darkGray;
+	}
+
+	&-default&-left::after {
+		border-left-color: @color-darkGray;
+	}
+
+	&-default&-left::before {
+		border-left-color: @color-darkGray;
+	}
+
+	&-default&-right::after {
+		border-right-color: @color-darkGray;
+	}
+
+	&-default&-right::before {
+		border-right-color: @color-darkGray;
+	}
+
+	&-default&-down::after {
+		border-bottom-color: @color-darkGray;
+	}
+
+	&-default&-down::before {
+		border-bottom-color: @color-darkGray;
+	}
+
+	// light before/after styles
+	&-light&-up::after {
+		border-top-color: @color-white;
+	}
+
+	&-light&-up::before {
+		border-top-color: @color-borderColor;
+	}
+
+	&-light&-left::after {
+		border-left-color: @color-white;
+	}
+
+	&-light&-left::before {
+		border-left-color: @color-borderColor;
+	}
+
+	&-light&-right::after {
+		border-right-color: @color-white;
+	}
+
+	&-light&-right::before {
+		border-right-color: @color-borderColor;
+	}
+
+	&-light&-down::after {
+		border-bottom-color: @color-white;
+	}
+
+	&-light&-down::before {
+		border-bottom-color: @color-borderColor;
+	}
+
+	&::after,
+	&::before {
+		content: ' ';
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		border: 7px solid @color-transparent;
+	}
+
+	&::after {
+		border-width: @Tooltip-pointer-inner-width;
+	}
+
+	&::before {
+		border-width: @Tooltip-pointer-outer-width;
+	}
+
+	&-up::after,
+	&-up::before {
+		top: 100%;
+	}
+
+	&-up::after {
+		margin-left: -@Tooltip-pointer-inner-width;
+	}
+
+	&-down::after,
+	&-down::before {
+		bottom: 100%;
+	}
+
+	&-up&-center::after,
+	&-up&-center::before,
+	&-down&-center::after,
+	&-down&-center::before {
+		left: 50%;
+	}
+
+	&-up&-center::before,
+	&-down&-center::before {
+		margin-left: -@Tooltip-pointer-outer-width;
+	}
+
+	&-up&-center::after,
+	&-down&-center::after {
+		margin-left: -@Tooltip-pointer-inner-width;
+	}
+
+	&-up&-start::after,
+	&-down&-start::after {
+		margin-left: 1px;
+	}
+
+	&-up&-end::after,
+	&-down&-end::after {
+		margin-right: 1px;
+	}
+
+	&-down&-start::after,
+	&-down&-start::before,
+	&-up&-start::after,
+	&-up&-start::before {
+		left: @Tooltip-pointer-offset;
+	}
+
+	&-down&-end::after,
+	&-down&-end::before,
+	&-up&-end::after,
+	&-up&-end::before {
+		right: @Tooltip-pointer-offset;
+	}
+
+	&-left::after,
+	&-left::before {
+		left: 100%;
+	}
+
+	&-right::after,
+	&-right::before {
+		right: 100%;
+	}
+
+	&-left&-center::after,
+	&-left&-center::before,
+	&-right&-center::after,
+	&-right&-center::before {
+		top: 50%;
+	}
+
+	&-left&-center::before,
+	&-right&-center::before {
+		margin-top: -@Tooltip-pointer-outer-width;
+	}
+
+	&-left&-center::after,
+	&-right&-center::after {
+		margin-top: -@Tooltip-pointer-inner-width;
+	}
+
+	&-left&-start::after,
+	&-left&-start::before,
+	&-right&-start::after,
+	&-right&-start::before {
+		top: @Tooltip-pointer-offset;
+	}
+
+	&-left&-end::after,
+	&-left&-end::before,
+	&-right&-end::after,
+	&-right&-end::before {
+		bottom: @Tooltip-pointer-offset;
+	}
+
+	&-left&-start::after,
+	&-right&-start::after {
+		margin-top: 1px;
+	}
+
+	&-left&-end::after,
+	&-right&-end::after {
+		margin-bottom: 1px;
+	}
+}
