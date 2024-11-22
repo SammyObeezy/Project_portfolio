@@ -23,7 +23,7 @@ const FAQs = React.lazy(() => import("../components/Faqs"));
 const TermsOfUse = React.lazy(() => import("../components/Terms"));
 const PrivacyPolicy = React.lazy(() => import("../components/Privacy"));
 
-const BASE_URL = "http://localhost:5000"; // Hardcoded base URL
+const BASE_URL = "http://localhost:5000";
 
 const router = createBrowserRouter([
   {

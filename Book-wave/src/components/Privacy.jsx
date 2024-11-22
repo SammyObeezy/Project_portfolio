@@ -1,6 +1,6 @@
 import React from "react";
 
-const PrivacyPolicy = () => {
+const Privacy = () => {
   return (
     <section className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-10">
       <div className="max-w-5xl w-full px-4 md:px-8">
@@ -113,4 +113,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default Privacy;
