@@ -153,50 +153,7 @@ const Team = () => {
         </div>
       </section>
 
-      <section className="bg-gray-100  py-5 mb-12">
-        <div className="container py-3">
-          <div className="items-center text-center mb-5">
-            <Link className="text-2xl font-bold text-red-600 flex items-center gap-2">
-              <FaBlog className="inline-block" />
-              BookWave
-            </Link>
-          </div>
-        
-
-          <div className="author-bio max-w-2xl mx-auto">
-            <h3 className="text-3xl font-semibold mb-4 text-black">
-              From Team
-            </h3>
-            <p className="text-black mb-6">
-              BookWave began as a shared passion among our team members at ALX
-              School—a desire to enrich the world of reading through technology.
-              Inspired by our own love for books and the potential of digital
-              platforms, we embarked on a journey to create a space where
-              readers could explore, connect, and discover new literary
-              adventures.
-            </p>
-            <h3 className="text-3xl font-semibold mb-4 text-red">Timeline</h3>
-            <p className="text-black mb-6">
-              The idea took root during our coursework at ALX School, where we
-              honed our skills in software development and design. As a
-              Portfolio Project, BookWave allowed us to apply our knowledge in a
-              real-world context, shaping the platform from concept to reality.
-            </p>
-            <h3 className="text-3xl font-semibold mb-4 text-black">
-              Github Repository
-            </h3>
-            <p className="text-black">
-              Explore our project's code and contribute to its development on{" "}
-              <a
-                href="https://github.com/mogulsam/Bookwave"
-                className="text-blue-600 underline hover:underline"
-              >
-                GitHub
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
+     
 
       <section
         id="form-section"

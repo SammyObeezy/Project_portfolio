@@ -12,7 +12,7 @@ const Rent = () => {
   const [selectedCounty, setSelectedCounty] = useState("all");
   const [selectedSubCounty, setSelectedSubCounty] = useState("all");
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
-  const [isProcessing, setIsProcessing] = useState({});
+  const [condition, setCondition] = useState("all");
 
   //add data here for all locations or we can optionally add a functionalty to make fetching possible automatically
   const counties = ["all", "Nairobi", "Mombasa", "Kisumu", "Nakuru"];
@@ -38,13 +38,79 @@ const Rent = () => {
 
   const conditions = ["all", "New", "Like New", "Good", "Fair"];
 
+  const [isProcessing, setIsProcessing] = useState({});
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [showBookingModal, setShowBookingModal] = useState(false);
+   // Handle borrow button click
   const handleBorrow = async (bookId) => {
-    setIsProcessing(prev => ({ ...prev, [bookId]: true }));
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    setIsProcessing(prev => ({ ...prev, [bookId]: false }));
+    // Set processing state for this specific book
+    setIsProcessing(prev => ({
+      ...prev,
+      [bookId]: true
+    }));
+
+    try {
+      // Simulate a small delay to show loading state
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Find the book details from rentalBooks array
+      const book = rentalBooks.find(b => b._id === bookId);
+      
+      if (!book) {
+        throw new Error("Book not found");
+      }
+
+      // Set the selected book and show modal
+      setSelectedBook(book);
+      setShowBookingModal(true);
+    } catch (error) {
+      console.error("Error processing borrow request:", error);
+      // Optionally show an error message to the user
+    } finally {
+      // Reset processing state
+      setIsProcessing(prev => ({
+        ...prev,
+        [bookId]: false
+      }));
+    }
   };
 
+  // Handle modal close
+  const handleCloseModal = () => {
+    setShowBookingModal(false);
+    setSelectedBook(null);
+  };
+
+  // Handle booking confirmation
+  const handleConfirmBooking = async (bookingDetails) => {
+    try {
+      // Show loading state
+      setIsProcessing(prev => ({
+        ...prev,
+        [selectedBook._id]: true
+      }));
+
+      // Here you would make your API call to save the booking
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
+      
+      // Close the modal after successful booking
+      handleCloseModal();
+      
+      // Optionally show a success message
+      // You might want to add a toast notification here
+      
+      // Refresh the rental books list if needed
+      // await fetchRentalBooks();
+    } catch (error) {
+      console.error("Error confirming booking:", error);
+      // Handle error (show error message to user)
+    } finally {
+      setIsProcessing(prev => ({
+        ...prev,
+        [selectedBook._id]: false
+      }));
+    }
+  };
   useEffect(() => {
     const fetchRentalBooks = async () => {
       try {
@@ -78,12 +144,14 @@ const Rent = () => {
         ) ||
         (book.genre?.toLowerCase() || "").includes(searchQuery.toLowerCase());
 
-      const matchesGenre = selectedGenre === "all" || book.genre === selectedGenre;
-      const matchesCounty = selectedCounty === "all" || book.county === selectedCounty;
-      const matchesSubCounty = selectedSubCounty === "all" || book.subCounty === selectedSubCounty;
-      
-      
-      return matchesSearch && matchesGenre && matchesCounty && matchesSubCounty
+      const matchesGenre =
+        selectedGenre === "all" || book.genre === selectedGenre;
+      const matchesCounty =
+        selectedCounty === "all" || book.county === selectedCounty;
+      const matchesSubCounty =
+        selectedSubCounty === "all" || book.subCounty === selectedSubCounty;
+
+      return matchesSearch && matchesGenre && matchesCounty && matchesSubCounty;
     })
     .sort((a, b) => {
       switch (sortBy) {
@@ -216,7 +284,9 @@ const Rent = () => {
           <button
             onClick={() => handleBorrow(book._id)}
             disabled={isProcessing[book._id]}
-            className="w-full bg-black hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md flex items-center justify-center"
+            className={`w-full bg-black hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md flex items-center justify-center ${
+              isProcessing[book._id] ? 'opacity-75 cursor-not-allowed' : ''
+            }`}
           >
             {isProcessing[book._id] ? (
               <>
@@ -288,7 +358,7 @@ const Rent = () => {
 
       {/* Advanced Filters */}
       <div className="mb-8 bg-white p-6 rounded-xl shadow-sm space-y-6 flex">
-        <div className="grid grid-cols-4 md:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div className="grid grid-cols-4 md:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Location Filters */}
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">County</label>
@@ -371,12 +441,13 @@ const Rent = () => {
 
       {/* Book Grid */}
       {!loading && filteredBooks.length > 0 && (
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredBooks.map((book) => (
             <BookCard key={book._id} book={book} />
           ))}
         </div>
       )}
+      
     </div>
   );
 };
