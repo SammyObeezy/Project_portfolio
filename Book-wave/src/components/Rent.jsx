@@ -41,21 +41,21 @@ const Rent = () => {
   const [isProcessing, setIsProcessing] = useState({});
   const [selectedBook, setSelectedBook] = useState(null);
   const [showBookingModal, setShowBookingModal] = useState(false);
-   // Handle borrow button click
+  // Handle borrow button click
   const handleBorrow = async (bookId) => {
     // Set processing state for this specific book
-    setIsProcessing(prev => ({
+    setIsProcessing((prev) => ({
       ...prev,
-      [bookId]: true
+      [bookId]: true,
     }));
 
     try {
       // Simulate a small delay to show loading state
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       // Find the book details from rentalBooks array
-      const book = rentalBooks.find(b => b._id === bookId);
-      
+      const book = rentalBooks.find((b) => b._id === bookId);
+
       if (!book) {
         throw new Error("Book not found");
       }
@@ -68,9 +68,9 @@ const Rent = () => {
       // Optionally show an error message to the user
     } finally {
       // Reset processing state
-      setIsProcessing(prev => ({
+      setIsProcessing((prev) => ({
         ...prev,
-        [bookId]: false
+        [bookId]: false,
       }));
     }
   };
@@ -85,29 +85,29 @@ const Rent = () => {
   const handleConfirmBooking = async (bookingDetails) => {
     try {
       // Show loading state
-      setIsProcessing(prev => ({
+      setIsProcessing((prev) => ({
         ...prev,
-        [selectedBook._id]: true
+        [selectedBook._id]: true,
       }));
 
       // Here you would make your API call to save the booking
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call
-      
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate API call
+
       // Close the modal after successful booking
       handleCloseModal();
-      
+
       // Optionally show a success message
       // You might want to add a toast notification here
-      
+
       // Refresh the rental books list if needed
       // await fetchRentalBooks();
     } catch (error) {
       console.error("Error confirming booking:", error);
       // Handle error (show error message to user)
     } finally {
-      setIsProcessing(prev => ({
+      setIsProcessing((prev) => ({
         ...prev,
-        [selectedBook._id]: false
+        [selectedBook._id]: false,
       }));
     }
   };
@@ -285,7 +285,7 @@ const Rent = () => {
             onClick={() => handleBorrow(book._id)}
             disabled={isProcessing[book._id]}
             className={`w-full bg-black hover:bg-gray-800 text-white font-medium py-2.5 px-4 rounded-xl transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 shadow-sm hover:shadow-md flex items-center justify-center ${
-              isProcessing[book._id] ? 'opacity-75 cursor-not-allowed' : ''
+              isProcessing[book._id] ? "opacity-75 cursor-not-allowed" : ""
             }`}
           >
             {isProcessing[book._id] ? (
@@ -316,6 +316,137 @@ const Rent = () => {
               "Borrow Now"
             )}
           </button>
+        </div>
+      </div>
+    );
+  };
+
+  //Modal UI
+  const BookingModal = ({ book, onClose, onConfirm, isProcessing }) => {
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+
+    const handleConfirm = () => {
+      if (startDate && endDate) {
+        onConfirm({ startDate, endDate });
+      } else {
+        alert("Please select a start and end date for the rental.");
+      }
+    };
+
+    // calculate total price
+    const calculateTotalPrice = () => {
+      if (startDate && endDate) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        const timeDiff = Math.abs(end.getTime() - start.getTime());
+        const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        return daysDiff * book.rentalPrice;
+      }
+      return 0;
+    };
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+        <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-6">
+            Borrowing {book.rentalTitle}
+          </h2>
+          <div className="mb-4">
+            <p className="text-gray-700 mb-2">
+              Renter: <span className="font-medium">{book.renterName}</span>
+            </p>
+            <p className="text-gray-700 mb-2">
+              Location: <span className="font-medium">{book.location}</span>
+            </p>
+            <p className="text-gray-700 mb-2">
+              Daily Rate:{" "}
+              <span className="font-medium">
+                {currencySymbol}
+                {book.rentalPrice}
+                /day
+              </span>
+            </p>
+          </div>
+          <div className="mb-6 space-y-4">
+            <div className="flex flex-col">
+              <label htmlFor="startDate" className="text-gray-700 mb-2">
+                Start Date
+              </label>
+              <input
+                type="date"
+                id="startDate"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="endDate" className="text-gray-700 mb-2">
+                End Date
+              </label>
+              <input
+                type="date"
+                id="endDate"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="border border-gray-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              />
+            </div>
+          </div>
+          <div className="mb-6">
+            <p className="text-gray-700 font-semibold">
+              Total Price:{" "}
+              <span className="text-orange-600">
+                {currencySymbol}
+                {calculateTotalPrice()}
+              </span>
+            </p>
+          </div>
+
+          <div className="flex justify-end gap-4">
+            <button
+              onClick={onClose}
+              className="px-4 py-2 rounded-lg text-gray-700 font-medium border border-gray-300 hover:bg-gray-100 transition-all duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirm}
+              disabled={isProcessing}
+              className={`px-5 py-2.5 rounded-xl bg-black text-white font-medium hover:bg-gray-800 transition-all duration-200 ${
+                isProcessing ? "opacity-75 cursor-not-allowed" : ""
+              }`}
+            >
+              {isProcessing ? (
+                <>
+                  <svg
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  Processing...
+                </>
+              ) : (
+                "Confirm Booking"
+              )}
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -447,7 +578,15 @@ const Rent = () => {
           ))}
         </div>
       )}
-      
+      {showBookingModal && selectedBook && (
+        <BookingModal
+          book={selectedBook}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmBooking}
+          isProcessing={isProcessing[selectedBook._id]}
+          currencySymbol={currencySymbol}
+        />
+      )}
     </div>
   );
 };
