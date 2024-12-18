@@ -1,6 +1,8 @@
+require("dotenv").config(); // Load environment variables from .env
+
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000; /
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
@@ -9,8 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB configuration
-const uri =
-  "mongodb+srv://project-book-store:4RqMpYWskXoQD6ve@cluster0.pbxpkpz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const uri = process.env.MONGODB_URI; // Use the MONGODB_URI from .env
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
