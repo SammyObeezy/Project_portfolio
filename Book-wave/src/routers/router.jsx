@@ -5,6 +5,7 @@ import DashboardLayout from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RentalListings from "../components/Rent";
 import RentalForm from "../components/RentForm";
+import BookingDetails from "../components/Booking-details";
 
 
 // Lazy-loaded components
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <RentalListings />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/booking",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <BookingDetails />
           </Suspense>
         ),
       },
