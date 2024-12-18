@@ -1,0 +1,64 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-DateSelect {
+	display: flex;
+	align-items: center;
+	font-size: @fontSize;
+
+	.@{prefix}-DateSelect-chevron {
+		user-select: none;
+	}
+
+	&-slidePanel {
+		flex: 1;
+		height: 100%;
+
+		&-simple {
+			overflow: hidden;
+			display: flex;
+		}
+	}
+
+	& &-slide {
+		position: relative;
+		display: flex;
+		align-items: stretch;
+
+		&-simple {
+			flex: 1;
+		}
+
+		.@{prefix}-DateSelect-show-divider& {
+			&::after {
+				position: absolute;
+				top: 0;
+				right: 0;
+				content: '';
+				width: 1px;
+				height: 100%;
+				background-color: @color-neutral-3;
+			}
+
+			&.@{prefix}-InfiniteSlidePanel-Slide-in-frame,
+			&.@{prefix}-DateSelect-slide-simple {
+				&::after {
+					right: -1px;
+				}
+			}
+		}
+
+		.@{prefix}-DateSelect-slide-content {
+			margin: @size-XS;
+			flex: 1;
+			display: flex;
+			align-items: stretch;
+
+			.@{prefix}-DateSelect-CalendarMonth {
+				flex: 1;
+				font-size: 100%;
+			}
+		}
+	}
+}
+

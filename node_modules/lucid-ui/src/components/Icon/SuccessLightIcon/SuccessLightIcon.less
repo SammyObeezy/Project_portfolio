@@ -1,0 +1,32 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/mixins.less';
+
+.@{prefix}-SuccessLightIcon {
+	stroke: @featured-color-success;
+
+	&-is-disabled &-check,
+	&-is-active &-check {
+		stroke: @featured-color-success;
+	}
+
+	&-is-clickable:not(&-is-disabled):hover &-check,
+	&-is-active &-check {
+		stroke: @color-white;
+	}
+
+	&-background {
+		stroke: @featured-color-success;
+		fill: @color-white;
+	}
+
+	&-is-clickable:not(&-is-disabled):hover &-background,
+	&-is-active &-background {
+		stroke: @featured-color-success;
+		fill: @featured-color-success;
+	}
+
+	&-is-clickable&-is-active:not(&-is-disabled):hover &-background {
+		fill: @featured-color-success-colorHover;
+		stroke: @featured-color-success-colorHover;
+	}
+}

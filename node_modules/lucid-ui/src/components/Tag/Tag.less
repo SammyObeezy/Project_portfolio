@@ -1,0 +1,145 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-Tag {
+	.no-firefox-svg-aliasing();
+
+	background: @color-neutral-4;
+
+	// positioning
+	align-items: center;
+	display: inline-flex;
+	flex-wrap: wrap;
+
+	// margin/padding
+	padding: 1px 3px 6px 10px;
+	margin: @size-S @size-S 0 0;
+
+	// typography
+	color: @color-neutral-9;
+	font-size: @size-font;
+	font-weight: @font-weight-semiBold;
+	line-height: 1; // normalize FF and Chrome
+
+	&-has-light-background {
+		background: @color-neutral-3;
+	}
+
+	&-other-children {
+		display: inline-flex;
+		align-items: center;
+		padding: 6px 9px 0 0;
+	}
+
+	&-is-top {
+		// typography
+		text-transform: uppercase;
+		color: @color-neutral-7;
+		font-size: 11px; // non-standard font size
+		min-height: 26px;
+	}
+
+	&-remove-button {
+		margin-left: 6px;
+	}
+
+	// ---------------
+	// middle children
+	// ---------------
+	& > & {
+		// margin/padding
+		padding: 0;
+		margin: 0;
+		background: none;
+
+		// typography
+		text-transform: none;
+	}
+
+	& > & > &-other-children {
+		// margin/padding
+		padding: 5px 11px 0 0;
+	}
+
+	// --------------
+	// all leaves
+	// --------------
+	// The extra selectors here help guard against styles lower down in the file
+	&-is-leaf,
+	& > &-is-leaf,
+	& > & > &-is-leaf {
+		background: @color-white;
+
+		// positioning
+		min-height: @size-tag;
+		box-sizing: border-box;
+
+		// border
+		border-radius: (@size-tag / 2);
+
+		// margin/padding
+		// margin-right: @size-XXS;
+		// margin-top: @size-XS;
+		padding: 0;
+		margin: 5px 4px 0 0;
+
+		// typography
+		color: @color-neutral-9;
+		font-size: @size-font;
+		font-weight: @font-weight-regular;
+		text-transform: none;
+
+		& > .@{prefix}-Tag-other-children {
+			padding: 0 @size-S;
+		}
+	}
+
+	// --------------
+	// all removable leaves
+	// --------------
+	&-is-leaf&-is-removable,
+	& > &-is-leaf&-is-removable,
+	& > & > &-is-leaf&-is-removable {
+		// margin/padding
+		padding: 0 0 0 @size-XS;
+
+		& > .@{prefix}-Tag-other-children {
+			// margin/padding
+			padding: 0;
+
+			& > .@{prefix}-Tag-remove-button {
+				// margin/padding
+				margin: 1px 9px 0 7px;
+			}
+		}
+	}
+
+	// ---------------
+	// kind props
+	// ---------------
+	@kind-colors: default @color-neutral-5, primary @color-primary,
+		success @featured-color-success, info @featured-color-info,
+		warning @featured-color-warning, danger @featured-color-danger;
+
+	.setLeafBorder(@kind-colors);
+
+	.setLeafBorder(@list, @i: 1) when(@i <= length(@list)) {
+		@pair: extract(@list, @i);
+		@label: extract(@pair, 1);
+		@color: extract(@pair, 2);
+
+		&-@{label}&-is-leaf,
+		& > &-@{label}&-is-leaf,
+		& > & > &-@{label}&-is-leaf {
+			border: 1px solid @color;
+		}
+
+		.setLeafBorder(@list, @i + 1);
+	}
+	// override the default border for removable tags
+	&-default&-is-leaf&-is-removable,
+	& > &-default&-is-leaf&-is-removable,
+	& > & > &-default&-is-leaf&-is-removable {
+		border: 1px solid @color-primary;
+	}
+}

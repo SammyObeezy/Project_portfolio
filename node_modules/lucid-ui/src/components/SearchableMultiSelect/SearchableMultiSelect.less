@@ -1,0 +1,94 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-SearchableMultiSelect {
+	// Increase specificity to minimum necessary to beat DropMenu
+	&-DropMenu&-DropMenu&-DropMenu {
+		display: block;
+	}
+
+	&-DropMenu {
+		.@{prefix}-DropMenu-Option {
+			padding: 0 @size-XXS;
+		}
+	}
+
+	&-DropMenu-is-small {
+		.@{prefix}-DropMenu-Option {
+			padding: 0 7px;
+		}
+	}
+
+	.@{prefix}-ContextMenu {
+		display: block;
+	}
+
+	&-search {
+		&-is-small {
+			// Prevents zooming on focus
+			.@{prefix}-TextField {
+				font-size: 16px;
+			}
+		}
+
+		&-is-error {
+			.@{prefix}-TextField {
+				border: 2px solid @featured-color-danger;
+				border-radius: @size-height-half-standard;
+			}
+		}
+	}
+
+	&-CheckboxLabeled.@{prefix}-CheckboxLabeled {
+		display: flex;
+		flex: 1;
+		align-items: center;
+
+		.@{prefix}-CheckboxLabeled-label {
+			margin-left: @size-XXS;
+			cursor: pointer;
+			padding-top: 0;
+		}
+	}
+
+	&-noresults {
+		color: @color-disabledText;
+		font-style: italic;
+	}
+
+	&-Option-underline-match,
+	&-Option-underline-post,
+	&-Option-underline-pre {
+		white-space: pre;
+	}
+
+	&-Option-underline-match {
+		text-decoration: underline;
+	}
+
+	&-loading {
+		justify-content: center;
+
+		&.@{prefix}-DropMenu-Option.@{prefix}-DropMenu-Option-is-focused {
+			background: none;
+		}
+	}
+
+	&-Selection-padding {
+		margin-top: 10px;
+	}
+
+	& &-Selection-section &-Selection-group {
+		margin-bottom: @size-XXS;
+	}
+
+	&-Option-select-all {
+		border-bottom: 1px solid @color-borderColorLight;
+	}
+
+	&-error-content {
+		margin-top: @size-XXS;
+		color: @featured-color-danger;
+		font-size: @fontSize * 0.9;
+	}
+}

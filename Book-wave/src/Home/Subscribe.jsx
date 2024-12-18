@@ -13,7 +13,7 @@ const Subscribe = () => {
           <img
             src={readingImage}
             alt="Happy character reading"
-            className="h-auto max-w-full" // Ensure image is responsive
+            className="h-auto max-w-full" 
           />
         </div>
         <div className="lead-form-wrapper max-w-2xl mx-auto bg-gray-100 rounded p-5 w-3/4">

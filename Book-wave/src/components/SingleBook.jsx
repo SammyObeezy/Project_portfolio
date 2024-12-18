@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -110,3 +111,5 @@ const SingleBook = () => {
 };
 
 export default SingleBook;
+=======
+>>>>>>> cc419de2972fcfeb3d1cf82bd3311b09a49460b0

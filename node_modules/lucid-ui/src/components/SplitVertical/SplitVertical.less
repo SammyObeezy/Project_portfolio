@@ -1,0 +1,18 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-SplitVertical {
+	& > &-inner {
+		& > .@{prefix}-SplitVertical-Divider {
+			background: @color-borderColor;
+			box-sizing: border-box;
+			width: 1px;
+
+			&.@{prefix}-SplitVertical-Divider-is-resizeable {
+				background: @color-gray;
+				cursor: ew-resize;
+			}
+		}
+	}
+}
+

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "es5", "es6"],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "jsx": "react",
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "sourceMap": true,
+    "rootDir": "./src"
+  },
+  "include": [
+    "src/**/*",
+    ".storybook/**/*",
+    "docs"
+  ],
+  "exclude": [
+    "examples/**/*"
+  ]
+}

@@ -1,0 +1,292 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@Button-size-padding: 9px;
+@Button-size-height: @size-height-standard;
+@Button-size-height-small: @size-height-standard - 8;
+@Button-size-height-large: @size-height-standard + 12;
+@Button-size-borderRadius: @size-borderRadius;
+
+.@{prefix}-Button {
+	// Mixins
+	.no-safari-flicker();
+	.box-sizing();
+
+	background-color: @featured-color-default-backgroundColor;
+	cursor: pointer;
+	height: @Button-size-height;
+	border: @border-standardBorder;
+	border-radius: @Button-size-borderRadius;
+	font-size: @fontSize;
+	font-weight: @font-weight-medium;
+	padding: 0 @Button-size-padding;
+	outline: none;
+	color: @color-darkGray;
+
+	// from normalize.css@4.1.1
+	margin: 0; /* 2 */
+	overflow: visible;
+	text-transform: none;
+	-webkit-appearance: button; /* 2 */
+	// end normalize
+
+	white-space: nowrap;
+
+	&:hover:not(&-is-disabled) {
+		//background-color: @featured-color-default-backgroundColorHover;
+
+		// if body.background-color is not white ( when it is @color-neutral-2), the
+		// background-color: multiply(#f9f8f7, #f4f2f2);
+		// document.style.body.backgroundColor
+		will-change: opacity;
+		mix-blend-mode: multiply;
+		background-color: multiply(
+			@color-neutral-2,
+			@featured-color-default-backgroundColorHover
+		);
+	}
+
+	&:active:not(&-is-disabled),
+	&:focus:not(&-is-disabled) {
+		background-color: @featured-color-default-backgroundColorFocus;
+	}
+
+	// don't show Firefox's focus ring: https://github.com/appnexus/lucid/issues/292
+	&::-moz-focus-inner {
+		border: 0;
+	}
+
+	&::before {
+		border-radius: @Button-size-borderRadius;
+	}
+
+	&&-has-only-icon {
+		padding: 0 7px;
+
+		.@{prefix}-Button-content > .@{prefix}-Icon {
+			margin-right: 0;
+		}
+	}
+
+	.@{prefix}-Icon {
+		width: 12px;
+		height: 12px;
+	}
+
+	& &-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		line-height: 1; // normalize FireFox and Chrome https://stackoverflow.com/a/7856737/895558
+
+		> .@{prefix}-Icon {
+			transition: color @timing-animation-hover, fill @timing-animation-hover;
+			margin-right: 6px;
+		}
+
+		> span {
+			transition: color @timing-animation-hover, fill @timing-animation-hover;
+		}
+	}
+
+	// Types
+	&&-primary {
+		&.@{prefix}-Button-is-disabled {
+			opacity: @opacity-disabled;
+
+			.@{prefix}-Icon {
+				stroke: @color-white;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		.bold();
+
+		background-color: @featured-color-primary-backgroundColor;
+		border-color: @featured-color-primary-borderColor;
+		color: @color-white;
+
+		.@{prefix}-Icon {
+			stroke: @color-white;
+		}
+
+		&:hover:not(.@{prefix}-Button-is-disabled) {
+			background-color: @featured-color-primary-backgroundColor;
+			.opacity(@opacity-hover);
+		}
+
+		&:active:not(.@{prefix}-Button-is-disabled),
+		&:focus:not(.@{prefix}-Button-is-disabled) {
+			background-color: @featured-color-primary-colorActive;
+			.opacity(1);
+		}
+	}
+
+	&&-danger {
+		&.@{prefix}-Button-is-disabled {
+			opacity: @opacity-disabled;
+
+			.@{prefix}-Icon {
+				stroke: @color-white;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+		.bold();
+
+		background-color: @featured-color-danger-backgroundColor;
+		border-color: @featured-color-danger-borderColor;
+		color: @color-white;
+
+		.@{prefix}-Icon {
+			stroke: @color-white;
+		}
+
+		&:hover:not(.@{prefix}-Button-is-disabled) {
+			background-color: @featured-color-danger-backgroundColor;
+			.opacity(@opacity-hover);
+		}
+
+		&:active:not(.@{prefix}-Button-is-disabled),
+		&:focus:not(.@{prefix}-Button-is-disabled) {
+			background-color: @featured-color-danger-colorActive;
+			.opacity(1);
+		}
+	}
+
+	&&-link {
+		&.@{prefix}-Button-is-disabled {
+			opacity: @opacity-disabled;
+
+			.@{prefix}-Icon {
+				stroke: @featured-color-default-iconColorDisabled;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		border: none;
+		background: none;
+		padding: 0;
+
+		&:hover,
+		&:active,
+		&:focus {
+			background-color: transparent;
+			text-decoration: underline;
+		}
+
+		&:active::before {
+			opacity: 0;
+		}
+
+		.@{prefix}-Icon {
+			stroke: @color-primary;
+		}
+	}
+
+	&&-link&-has-only-icon {
+		// Clear the right margin, only need it if the has text with it
+		.@{prefix}-Icon {
+			margin-right: 0;
+		}
+	}
+
+	&&-invisible {
+		.gradient-reset();
+
+		&.@{prefix}-Button-is-disabled {
+			opacity: @opacity-disabled;
+
+			.@{prefix}-Icon {
+				stroke: @featured-color-default-iconColorDisabled;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		border: none;
+		background: none;
+
+		&:active::before,
+		&:focus::before {
+			opacity: 0;
+		}
+
+		.@{prefix}-Icon {
+			stroke: @color-primary;
+		}
+	}
+
+	// Sizes
+	&&-short {
+		height: @Button-size-height-small;
+	}
+
+	&&-small {
+		height: @Button-size-height-small;
+		padding: 0 (@Button-size-padding / 1.5);
+	}
+
+	&&-small&-has-only-icon {
+		width: 20px;
+	}
+
+	&&-large {
+		height: @Button-size-height-large;
+		padding: 0 12px;
+		font-size: 1.2em;
+
+		.@{prefix}-Icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	&&-large&-has-only-icon {
+		padding: 0 8px;
+	}
+
+	// States
+	&&-is-active {
+		background-color: @featured-color-default-backgroundColorFocus;
+	}
+
+	&&-is-active&-primary {
+		background: @featured-color-primary;
+		border-color: @featured-color-primary;
+	}
+
+	&&-is-active&-danger {
+		border-color: @featured-color-danger-borderColor;
+		background: @featured-color-danger;
+	}
+
+	&-is-disabled {
+		&.@{prefix}-Button-is-disabled {
+			opacity: @opacity-disabled;
+
+			.@{prefix}-Icon {
+				stroke: @featured-color-default-iconColorDisabled;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+
+	// Also needed in some cases to beat other libraries (e.g. pure.css)
+	&[disabled] {
+		.no-cursor();
+	}
+}

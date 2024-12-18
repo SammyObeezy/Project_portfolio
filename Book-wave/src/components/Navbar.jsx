@@ -29,8 +29,10 @@ const Navbar = () => {
     { link: "Home", path: "/" },
     { link: "About Us", path: "/about" },
     { link: "Shop", path: "/shop" },
+    { link: "Connect", path: "/connectPage" },
     { link: "Sell Your Book", path: "/admin/dashboard" },
     { link: "Blog", path: "/blog" },
+    { link: "Rent", path: "/RentForm"}
   ];
 
   return (

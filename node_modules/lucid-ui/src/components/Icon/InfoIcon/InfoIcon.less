@@ -1,0 +1,20 @@
+@import (reference) '../../../styles/variables.less';
+@import (reference) '../../../styles/mixins.less';
+
+.@{prefix}-InfoIcon {
+	stroke: @featured-color-info;
+
+	&-i {
+		fill: @color-white;
+		stroke: @color-white;
+	}
+
+	&-background {
+		fill: @featured-color-info;
+	}
+
+	&-is-clickable:not(&-is-disabled):hover &-background {
+		stroke: @featured-color-info-colorHover;
+		fill: @featured-color-info-colorHover;
+	}
+}

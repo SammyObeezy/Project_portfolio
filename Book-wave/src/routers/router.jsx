@@ -3,6 +3,9 @@ import React, { Suspense } from "react";
 import App from "../App";
 import DashboardLayout from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import RentalListings from "../components/Rent";
+import RentalForm from "../components/RentForm";
+
 
 // Lazy-loaded components
 const NotFound = React.lazy(() => import("../components/NotFound"));
@@ -22,6 +25,7 @@ const Contact = React.lazy(() => import("../components/Contact"));
 const FAQs = React.lazy(() => import("../components/Faqs"));
 const TermsOfUse = React.lazy(() => import("../components/Terms"));
 const PrivacyPolicy = React.lazy(() => import("../components/Privacy"));
+const ConnectPage = React.lazy(() => import("../components/ConnectPage"));
 
 const BASE_URL = "http://localhost:5000";
 
@@ -43,6 +47,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <Shop />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/rent",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RentalListings />
           </Suspense>
         ),
       },
@@ -79,10 +91,26 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/connectPage",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <ConnectPage />
+          </Suspense>
+        ),
+      },
+      {
         path: "/privacy",
         element: (
           <Suspense fallback={<div>Loading...</div>}>
             <PrivacyPolicy />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/RentForm",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RentalForm />
           </Suspense>
         ),
       },

@@ -1,0 +1,51 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+@TextField-size-height: @size-height-standard;
+@TextField-color-font: @color-neutral-9;
+
+.@{prefix}-TextField,
+.@{prefix}-TextFieldPlain {
+	.box-sizing();
+
+	border: @border-standardBorder;
+	background-color: @color-white;
+	border-radius: @size-borderRadius;
+	color: @TextField-color-font;
+	font-size: @fontSize;
+	margin: 0;
+	padding: 1px @size-S 0 @size-S;
+	width: 100%;
+	box-shadow: inset 0 1px 2px 0 rgba(33, 31, 31, 0.12);
+
+	&:hover {
+		border-color: @color-neutral-10;
+		box-shadow: inset 0 1px 2px 0 rgba(33, 31, 31, 0.16);
+	}
+
+	&:focus {
+		border: @size-borderWidthFocused solid @color-primary;
+		outline: none;
+		border-color: @color-primary;
+		box-shadow: inset 0 1px 2px 0 rgba(33, 31, 31, 0.16);
+	}
+
+	&&-is-single-line {
+		vertical-align: middle;
+		height: @size-height-standard;
+	}
+
+	&&-is-multi-line {
+		vertical-align: top;
+		resize: both;
+		padding-top: 4px; // Handle padding appropriately for `textarea`s
+	}
+
+	&&-is-disabled {
+		cursor: not-allowed;
+		background-color: @color-neutral-3;
+		color: @color-neutral-6;
+		border-color: @color-neutral-4;
+		box-shadow: none;
+	}
+}

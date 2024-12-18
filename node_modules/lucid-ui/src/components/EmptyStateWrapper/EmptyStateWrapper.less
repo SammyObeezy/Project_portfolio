@@ -1,0 +1,31 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+.@{prefix}-EmptyStateWrapper {
+
+	&-message-container {
+		max-width: 401px;
+		background-color: @color-white;
+		border: @border-lightBorder;
+		border-radius: @size-borderRadius;
+	}
+
+	&-message-header {
+		background: @pattern-diagonal-striped;
+		height: @size-L;
+	}
+
+	&-message-contents {
+		padding: @size-S @size-standard @size-standard @size-standard;
+		text-align: center;
+	}
+
+	&-message-title {
+		color: @color-darkGray;
+		display: block;
+		font-size: @size-font-L;
+		font-weight: 500;
+		text-align: center;
+		margin-bottom: @size-XS;
+	}
+}

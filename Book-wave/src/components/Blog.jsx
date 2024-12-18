@@ -87,7 +87,7 @@ const Blog = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 md:px-10">
+    <div className="min-h-screen bg-gray-100 py-10 px-4 md:px-10 mt-10">
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">
         Blogs Section
       </h1>

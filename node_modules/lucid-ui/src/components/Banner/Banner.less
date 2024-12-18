@@ -1,0 +1,137 @@
+@import (reference) '../../styles/variables.less';
+@import (reference) '../../styles/mixins.less';
+
+// banner sizes
+@Banner-size-spacing-rightLeft: @size-standard;
+@Banner-size-spacing-topBottom: @size-standard;
+@Banner-size-spacing-topBottom-small: @size-XS;
+@Banner-size-iconFontSize: 16px;
+
+.@{prefix}-Banner {
+	.transition-group-animation-fade();
+
+	box-sizing: content-box;
+	border: @color-darkGray 2px solid;
+	background-color: @color-white;
+	font-size: @fontSize;
+	font-weight: @font-weight-medium;
+	padding: 0 @Banner-size-spacing-rightLeft;
+	display: flex;
+	color: @color-darkGray;
+
+	&.@{prefix}-Banner-has-close {
+		padding-right: @Banner-size-spacing-rightLeft;
+	}
+
+	&-close&-close&-close {
+		align-self: flex-start;
+		margin-top: 14px;
+	}
+	// must use this specific selector in order to override default color
+	&-filled &-close&-close&-close {
+		stroke: @color-white;
+
+		&:hover {
+			stroke: @color-white;
+			opacity: 0.5;
+		}
+	}
+
+	&-small&-small > &-close {
+		margin-top: 8px;
+	}
+
+	// States
+
+	&-has-icon {
+		& > .@{prefix}-Banner-content {
+			padding: @Banner-size-spacing-topBottom 0;
+		}
+	}
+
+	&-icon {
+		> .@{prefix}-Icon {
+			stroke: @color-darkGray;
+		}
+
+		display: flex;
+		align-self: center;
+		margin-right: @Banner-size-spacing-rightLeft;
+	}
+
+	&-filled &-icon > .@{prefix}-Icon {
+		stroke: @color-white;
+	}
+
+	&-content {
+		flex: 1;
+		padding: @Banner-size-spacing-topBottom 0;
+		line-height: 15px;
+
+		& > p {
+			line-height: 1.25em;
+
+			&:first-of-type {
+				margin-top: 0;
+			}
+
+			&:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	a {
+		color: inherit;
+		text-decoration: underline;
+	}
+
+	// Types
+	&-success {
+		border-color: @featured-color-success;
+	}
+
+	&-info {
+		border-color: @featured-color-info;
+	}
+
+	&-warning {
+		border-color: @featured-color-warning;
+	}
+
+	&-danger {
+		border-color: @featured-color-danger;
+	}
+
+	&-filled {
+		border: none;
+		background-color: @color-neutral-9;
+		color: @color-white;
+
+		&.@{prefix}-Banner-success {
+			background-color: @featured-color-success;
+		}
+
+		&.@{prefix}-Banner-info {
+			background-color: @featured-color-info;
+		}
+
+		&.@{prefix}-Banner-warning {
+			background-color: @featured-color-warning;
+			color: @color-darkGray;
+
+			.@{prefix}-Banner-close.@{prefix}-Banner-close.@{prefix}-Banner-close {
+				stroke: @color-darkGray;
+			}
+		}
+
+		&.@{prefix}-Banner-danger {
+			background-color: @featured-color-danger;
+		}
+	}
+
+	&-small &-content {
+		padding: @Banner-size-spacing-topBottom - 6px 0;
+		height: 12px;
+	}
+}

@@ -19,6 +19,9 @@ const MyFooter = () => {
               <Footer.Link as={Link} to="/about">
                 Our Mission
               </Footer.Link>
+              <Footer.Link as={Link} to="/rent">
+                Rent
+              </Footer.Link>
               <Footer.Link as={Link} to="/blog">
                 Blog
               </Footer.Link>
