@@ -6,6 +6,15 @@ const port = process.env.PORT || 5000;
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("MongoDB");
 
+// Define CORS options
+const corsOptions = {
+  origin: 'https://project-portfolio-frontend-wine.vercel.app', // Your frontend URL
+  methods: ['GET', 'POST'], // Allow these HTTP methods
+  allowedHeaders: ['Content-Type'], // Allow content-type headers
+};
+
+// Enable CORS with the specified options
+app.use(cors(corsOptions));
 // Middleware
 app.use(cors());
 app.use(express.json());
