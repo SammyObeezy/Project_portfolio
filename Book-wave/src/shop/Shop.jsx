@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHeart, FaShoppingCart, FaDownload } from "react-icons/fa";
+import { backendUrl } from "../App";
 
 const Shop = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/all-books")
+    fetch(backendUrl + "/all-books")
       .then((res) => res.json())
       .then((data) => setBooks(data));
   }, []);

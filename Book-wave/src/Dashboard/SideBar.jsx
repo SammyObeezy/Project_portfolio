@@ -47,9 +47,6 @@ const SideBar = () => {
           <Sidebar.Item href="#" icon={HiUser}>
             <p>Users</p>
           </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiShoppingBag}>
-            <p> Products</p>
-          </Sidebar.Item>
           <Sidebar.Item href="/login" icon={HiArrowSmRight}>
             <p>Sign In</p>
           </Sidebar.Item>
@@ -58,12 +55,6 @@ const SideBar = () => {
           </Sidebar.Item>
         </Sidebar.ItemGroup>
         <Sidebar.ItemGroup>
-          <Sidebar.Item href="#" icon={HiChartPie}>
-            <p>Upgrade to Pro</p>
-          </Sidebar.Item>
-          <Sidebar.Item href="#" icon={HiViewBoards}>
-            <p>Documentation</p>
-          </Sidebar.Item>
           <Sidebar.Item href="#" icon={BiBuoy}>
             <p>Help</p>
           </Sidebar.Item>

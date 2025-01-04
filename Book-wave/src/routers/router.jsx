@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React, { Suspense } from "react";
-import App from "../App";
+import App, { backendUrl } from "../App";
 import DashboardLayout from "../Dashboard/DashboardLayout";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import RentalListings from "../components/Rent";
@@ -28,7 +28,7 @@ const TermsOfUse = React.lazy(() => import("../components/Terms"));
 const PrivacyPolicy = React.lazy(() => import("../components/Privacy"));
 const ConnectPage = React.lazy(() => import("../components/ConnectPage"));
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = backendUrl;
 
 const router = createBrowserRouter([
   {

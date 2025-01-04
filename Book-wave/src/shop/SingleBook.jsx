@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { FaShoppingCart, FaBookOpen, FaDownload } from "react-icons/fa"; // Icons
 import BookReader from "./BookReader"; // Book reading component
 import "./SingleBook.css"; // Import CSS for styling
+import { backendUrl } from "../App";
 
 const SingleBook = () => {
   const { id } = useParams(); // Get the book ID from the URL
@@ -19,7 +20,7 @@ const SingleBook = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/book/${id}`);
+        const response = await fetch(backendUrl + `/book/${id}`);
 
         // Check if response is okay
         if (!response.ok) {

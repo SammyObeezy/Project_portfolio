@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaUser } from "react-icons/fa"; // Importing Font Awesome User icon
+import { backendUrl } from "../App";
 
 const Blog = () => {
   // State to store blog data
@@ -24,7 +25,7 @@ const Blog = () => {
   // Fetch blogs from the backend
   const fetchBlogs = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/blogs");
+      const response = await axios.get( backendUrl + "/blogs");
       setBlogs(response.data);
     } catch (error) {
       console.error("Error fetching blogs:", error);
@@ -45,13 +46,13 @@ const Blog = () => {
     try {
       if (isEditing) {
         await axios.patch(
-          `http://localhost:5000/blog/${editingBlogId}`,
+          backendUrl + `/blog/${editingBlogId}`,
           blogData
         );
         setIsEditing(false);
         setEditingBlogId(null);
       } else {
-        await axios.post("http://localhost:5000/blogs", blogData);
+        await axios.post(backendUrl + "/blogs", blogData);
       }
 
       setTitle("");
@@ -79,7 +80,7 @@ const Blog = () => {
   // Handle deleting a blog post
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/blog/${id}`);
+      await axios.delete( backendUrl + `/blog/${id}`);
       fetchBlogs();
     } catch (error) {
       console.error("Error deleting blog:", error);

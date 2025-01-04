@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BannerCard from "../Home/BannerCard";
 import yourImage from "../assets/sub-pic11.png";
+import { backendUrl } from "../App";
 
 const Banner = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -11,7 +12,7 @@ const Banner = () => {
   // Fetch all books initially
   const fetchBooks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/all-books");
+      const response = await fetch(backendUrl + "/all-books");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }

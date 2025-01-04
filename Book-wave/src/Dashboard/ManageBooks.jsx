@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Table, TableBody } from "flowbite-react";
 import "flowbite/dist/flowbite.css";
 import { Link } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const ManageBooks = () => {
   const [allBooks, setAllBooks] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5000/all-books")
+    fetch(backendUrl + "/all-books")
       .then((res) => res.json())
       .then((data) => setAllBooks(data));
   }, []);
@@ -14,7 +15,7 @@ const ManageBooks = () => {
   //delete a book
   const handleDelete = (id) => {
     console.log(id);
-    fetch(`http://localhost:5000/book/${id}`, {
+    fetch(backendUrl + `/book/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

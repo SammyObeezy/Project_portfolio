@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import { backendUrl } from "../App";
 
 const RentForm = () => {
   const [formData, setFormData] = useState({
@@ -241,7 +242,7 @@ const RentForm = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/upload-rental", {
+      const response = await fetch( backendUrl + "/upload-rental", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

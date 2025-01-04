@@ -7,6 +7,7 @@ import {
   Textarea,
   TextInput,
 } from "flowbite-react";
+import { backendUrl } from "../App";
 const UploadBook = () => {
   const bookCategories = [
     "Fiction",
@@ -58,7 +59,7 @@ const UploadBook = () => {
     };
     console.log(bookObj);
     //send data to db
-    fetch("http://localhost:5000/upload-book", {
+    fetch(backendUrl + "/upload-book", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

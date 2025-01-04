@@ -1,6 +1,6 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { backendUrl } from "../App";
 
 const SingleBook = () => {
   const { id } = useParams(); // Get the book ID from the URL
@@ -12,7 +12,7 @@ const SingleBook = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/book/${id}`);
+        const response = await fetch(backendUrl + `/book/${id}`);
 
         // Check if response is okay
         if (!response.ok) {
@@ -111,5 +111,3 @@ const SingleBook = () => {
 };
 
 export default SingleBook;
-=======
->>>>>>> cc419de2972fcfeb3d1cf82bd3311b09a49460b0
