@@ -2,7 +2,7 @@ require("dotenv").config(); // Load environment variables from .env
 
 const express = require("express");
 const app = express();
-const port = process.env.PORT; 
+const port = process.env.PORT || 5000; 
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 
@@ -244,6 +244,9 @@ async function run() {
 
 run().catch(console.dir);
 
+app.get('/',(req,res)=>{
+  res.send('API is working')
+})
 // Start server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
