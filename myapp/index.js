@@ -16,7 +16,7 @@ const corsOptions = {
 // Enable CORS with the specified options
 app.use(cors(corsOptions));
 // Middleware
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 // MongoDB configuration
