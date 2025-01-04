@@ -4,7 +4,16 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000; 
 const cors = require("cors");
-const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("MongoDB");
+
+const corsOptions = {
+  origin: "https://project-portfolio-frontend-wine.vercel.app", // Frontend URL
+  methods: ["GET", "POST", "PATCH", "DELETE"], // Allowed HTTP methods
+  credentials: true, // Enable cookies or authorization headers if needed
+};
+
+app.use(cors(corsOptions));
+
 
 // Middleware
 app.use(cors());
