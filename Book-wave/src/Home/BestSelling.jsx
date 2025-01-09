@@ -6,7 +6,7 @@ const BestSelling = () => {
     const [books, setBooks] = useState([]);
 
     useEffect(() => {
-      fetch(backendUrl + "all-books")
+      fetch(backendUrl + "/all-books")
         .then((res) => res.json())
         .then((data) => setBooks(data.slice(0, 8)));
     }, []);
