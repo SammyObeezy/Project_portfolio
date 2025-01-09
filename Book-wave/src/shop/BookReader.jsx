@@ -61,7 +61,7 @@ const BookReader = ({ bookPdfUrl, onProgressUpdate, onClose }) => {
         </button>
       </div>
       <button className="close-button" onClick={onClose}>
-        &times; {/* This is the X icon for closing */}
+        &times; {/* X icon for closing */}
       </button>
     </div>
   );
